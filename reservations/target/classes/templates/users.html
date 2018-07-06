@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css">
+</head>
+<body>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone number</th>
+        <th><a href="/">Go Back</a></th>
+    </tr>
+    </thead>
+</table>
+<table class="table table-hover">
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getPhoneNumber()}"></td>
+    </tr>
+</table>
+</body>
+</html>
