@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,6 +15,8 @@
     <a class="navbar-brand"  href="/register">Register here</a><br>
     <a class="navbar-brand"  href="/login">Log in</a><br>
     <a class="navbar-brand"  href="/users">See all users</a><br>
+    <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/logout">Log out</a><br>
+        
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
         <span class="navbar-toggler-icon"></span>
     </button>
