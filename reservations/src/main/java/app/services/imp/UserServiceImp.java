@@ -61,9 +61,25 @@ public class UserServiceImp implements UserService, UserDetailsService {
         User user = new User(userDto.getUsername(), userDto.getEmail(), userDto.getPhoneNumber(),
                 this.passwordEncoder.encode(userDto.getPassword()));
 
-        Role role = this.roleRepository.findFirstByName("USER");
-        role.getUsers().add(user);
-        user.getRoles().add(role);
+        if (this.userRepository.count() == 0) {
+            Role role = this.roleRepository.findFirstByName("ADMIN");
+            if (role == null) {
+                role = new Role();
+                role.setName("ADMIN");
+                this.roleRepository.saveAndFlush(role);
+            }
+            role.getUsers().add(user);
+            user.getRoles().add(role);
+        } else {
+            Role role = this.roleRepository.findFirstByName("USER");
+            if (role == null) {
+                role = new Role();
+                role.setName("USER");
+                this.roleRepository.saveAndFlush(role);
+            }
+            role.getUsers().add(user);
+            user.getRoles().add(role);
+        }
 
         this.userRepository.saveAndFlush(user);
     }
