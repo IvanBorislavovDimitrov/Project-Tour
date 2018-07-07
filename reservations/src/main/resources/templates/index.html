@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="">Reservations</a>
     <a class="navbar-brand"  href="/register">Register here</a><br>
-    <a class="navbar-brand"  href="/login">Log in</a><br>
+    <a sec:authorize="isAnonymous()" class="navbar-brand"  href="/login">Log in</a><br>
     <a class="navbar-brand"  href="/users">See all users</a><br>
     <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/logout">Log out</a><br>
         
@@ -21,6 +21,10 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
+
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
 
 </body>
 </html>
