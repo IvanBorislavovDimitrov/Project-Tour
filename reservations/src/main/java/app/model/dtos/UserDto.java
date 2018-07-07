@@ -18,13 +18,9 @@ public class UserDto {
     @Length(min =  3)
     private String password;
 
-    public UserDto() {
-    }
+    private String roles;
 
-    public UserDto(@NotNull String username, @NotNull String email, @NotNull String phoneNumber) {
-        this.username = username;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public UserDto() {
     }
 
     public String getUsername() {
@@ -57,5 +53,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

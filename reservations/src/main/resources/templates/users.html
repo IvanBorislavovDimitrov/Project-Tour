@@ -7,22 +7,50 @@
     <link rel="stylesheet" href="/styles/bootstrap.css">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Reservations</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a  sec:authorize="isAnonymous()" class="navbar-brand"  href="/register">Register here</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAnonymous()" class="navbar-brand"  href="/login">Log in</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/users">See all users</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/logout">Log out</a><br>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
 <table class="table table-hover">
     <thead>
     <tr>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Phone number</th>
-        <th><a href="/">Go Back</a></th>
+        <th scope="col">Number</th>
+        <th scope="col">Role</th>
     </tr>
     </thead>
-</table>
-<table class="table table-hover">
-    <tr th:each="user : ${users}">
+    <tbody>
+    <tr class="table-active" th:each="user : ${users}">
         <td th:text="${user.getUsername()}"></td>
         <td th:text="${user.getEmail()}"></td>
         <td th:text="${user.getPhoneNumber()}"></td>
+        <td th:text="${user.getRoles()}"></td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>
