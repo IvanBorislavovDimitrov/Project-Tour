@@ -20,8 +20,8 @@ public class User implements ModelEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phoneNumber", nullable = false)
-    private String phoneNumber;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -36,17 +36,17 @@ public class User implements ModelEntity {
     public User(String name, String email, String phoneNumber, String password) {
         this.username = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phone = phoneNumber;
         this.password = password;
         this.roles = new HashSet<>();
     }
 
-    public String getPhoneNumber() {
-        return this.phoneNumber;
+    public String getPhone() {
+        return this.phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public String getUsername() {

@@ -23,7 +23,7 @@ public class DIConfig {
 
     @Bean
     @Autowired
-    GenericRepository<Destination> provideDestinationGenericRepository(SessionFactory sessionFactory) {
+    public GenericRepository<Destination> provideDestinationGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Destination> repo = new HibernateRepository<>(sessionFactory);
         repo.setEntityClass(Destination.class);
 
@@ -32,7 +32,7 @@ public class DIConfig {
 
     @Bean
     @Autowired
-    GenericRepository<Reservation> provideReservationGenericRepository(SessionFactory sessionFactory) {
+    public GenericRepository<Reservation> provideReservationGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Reservation> repo = new HibernateRepository<>(sessionFactory);
         repo.setEntityClass(Reservation.class);
 
@@ -41,7 +41,7 @@ public class DIConfig {
 
     @Bean
     @Autowired
-    GenericRepository<Role> provideRoleGenericRepository(SessionFactory sessionFactory) {
+    public GenericRepository<Role> provideRoleGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Role> repo = new HibernateRepository<>(sessionFactory);
         repo.setEntityClass(Role.class);
 
@@ -50,7 +50,7 @@ public class DIConfig {
 
     @Bean
     @Autowired
-    GenericRepository<User> provideUserGenericRepository(SessionFactory sessionFactory) {
+    public GenericRepository<User> provideUserGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<User> repo = new HibernateRepository<>(sessionFactory);
         repo.setEntityClass(User.class);
 
@@ -59,7 +59,8 @@ public class DIConfig {
 
 
     @Bean
-    SessionFactory provideSessionFactory() {
+    public SessionFactory provideSessionFactory() {
         return HibernateUtils.getSessionFactory();
     }
+
 }

@@ -1,6 +1,7 @@
 package app.repostiories;
 
 import app.entities.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -11,7 +12,6 @@ public class HibernateUtils {
     private static SessionFactory sessionFactory;
 
     static {
-        // Problem
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration()
                 .configure();
 

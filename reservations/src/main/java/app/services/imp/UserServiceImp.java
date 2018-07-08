@@ -41,7 +41,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 .map(u -> new UserDto() {{
                     this.setEmail(u.getEmail());
                     this.setPassword(u.getPassword());
-                    this.setPhoneNumber(u.getPhoneNumber());
+                    this.setPhoneNumber(u.getPhone());
                     this.setUsername(u.getUsername());
                     this.setRoles(String.join(", ", u.getRoles().stream()
                             .map(Role::getName).collect(Collectors.toList())));
