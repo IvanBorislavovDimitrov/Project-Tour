@@ -12,7 +12,8 @@ public class HibernateUtils {
 
     static {
         // Problem
-        Configuration configuration =
+        org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration()
+                .configure();
 
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Destination.class);
