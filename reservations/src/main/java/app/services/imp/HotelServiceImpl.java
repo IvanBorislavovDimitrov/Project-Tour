@@ -3,6 +3,7 @@ package app.services.imp;
 import app.entities.Hotel;
 import app.repostiories.base.GenericRepository;
 import app.services.api.HotelsService;
+import org.springframework.beans.InvalidPropertyException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class HotelServiceImpl implements HotelsService {
 
     private static final int PAGE_SIZE = 10;
+    private static final int PRODUCT_LEN_MIN = 4;
     private final GenericRepository<Hotel> hotelsRepository;
 
     public HotelServiceImpl(GenericRepository<Hotel> hotelsRepository) {
@@ -59,4 +61,14 @@ public class HotelServiceImpl implements HotelsService {
         return getHotelsByDestination(destination)
                 .subList(fromIndex, toIndex);
     }
+
+    @Override
+    public void createHotel(Hotel hotel) {
+        if(hotel.getName().length()<PRODUCT_LEN_MIN){
+            throw  new InvalidPropertyException(Hotel.class, "name", "Invalid length");
+        }
+        hotelsRepository.create(hotel);
+    }
+
+
 }

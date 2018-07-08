@@ -17,5 +17,7 @@ public interface HotelsService {
 
     List<Hotel> getHotelsByDestinationAndPage(String destination, int page);
 
+    void createHotel(Hotel hotel);
+
     //CRUD methods
 }
