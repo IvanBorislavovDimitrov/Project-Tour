@@ -18,7 +18,7 @@ public class HotelsRestController {
     private final HotelsService hotelsService;
 
     @Autowired
-    public HotelsRestController(HotelsService hotelsService){
+    public HotelsRestController(HotelsService hotelsService) {
         this.hotelsService = hotelsService;
 
     }
@@ -32,29 +32,26 @@ public class HotelsRestController {
     @RequestMapping("/hotels")
     public List<Hotel> getHotelsByDestination(
             @RequestParam(required = false) String destination,
-            @RequestParam(required = false) String page
-            ){
-       if(destination== null){
-           if(page.equals("")){
-               return hotelsService.getAllHotels();
-           }
-           else {
-               return hotelsService.getAllHotelsByPage(Integer.parseInt(page));
-           }
+            @RequestParam(required = false) String page) {
+        if (destination == null) {
+            if (page.equals("")) {
+                return hotelsService.getAllHotels();
+            } else {
+                return hotelsService.getAllHotelsByPage(Integer.parseInt(page));
+            }
 
-       }else {
-           if(page.equals("")){
-               return hotelsService.getHotelsByDestination(destination);
-           }
-           else {
-               return hotelsService.getHotelsByDestinationAndPage(destination, Integer.parseInt(page));
-           }
-       }
+        } else {
+            if (page.equals("")) {
+                return hotelsService.getHotelsByDestination(destination);
+            } else {
+                return hotelsService.getHotelsByDestinationAndPage(destination, Integer.parseInt(page));
+            }
+        }
 
     }
 
     @RequestMapping("/hotels/{id}")
-    public Hotel getHotelDetails(@PathVariable("id") String id){
+    public Hotel getHotelDetails(@PathVariable("id") String id) {
         return hotelsService.getHotelById(Integer.parseInt(id));
     }
 

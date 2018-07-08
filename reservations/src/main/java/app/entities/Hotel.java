@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "hotels")
-public class Hotel implements ModelEntity{
+public class Hotel implements ModelEntity {
     private int id;
     private String name;
     private Destination destination;
@@ -32,6 +32,7 @@ public class Hotel implements ModelEntity{
     public void setId(int id) {
         this.id = id;
     }
+
     public Hotel(String name) {
         setName(name);
     }
@@ -47,11 +48,11 @@ public class Hotel implements ModelEntity{
 
     @ManyToOne
     @JoinColumn(name = "destination_id", nullable = false)
-    public Destination getDesination() {
+    public Destination getDestination() {
         return destination;
     }
 
-    public void setDestination(Destination destination ) {
+    public void setDestination(Destination destination) {
         this.destination = destination;
     }
 

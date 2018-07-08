@@ -16,9 +16,9 @@ public class Destination implements ModelEntity {
     }
 
     public Destination(int id, String name, Set<Hotel> hotels) {
-        setId(id);
-        setName(name);
-        setHotels(hotels);
+        this.setId(id);
+        this.setName(name);
+        this.setHotels(hotels);
     }
 
     @Id

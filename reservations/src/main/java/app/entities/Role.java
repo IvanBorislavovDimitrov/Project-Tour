@@ -1,16 +1,18 @@
 package app.entities;
 
+import app.entities.base.ModelEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements ModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "name", unique = true)
     private String name;
@@ -22,11 +24,12 @@ public class Role {
         this.users = new HashSet<>();
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    @Override
+    public void setId(int id) {
         this.id = id;
     }
 

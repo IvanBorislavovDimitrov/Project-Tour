@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.Hotel;
 import app.services.api.HotelsService;
+import app.services.imp.HotelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,27 +13,26 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+
     private HotelsService hotelsService;
+
+    @Autowired
+    public HomeController(HotelsService hotelsService) {
+        this.hotelsService = hotelsService;
+    }
 
     @RequestMapping("/")
     public String index() {
         return "index";
     }
-
-    //JustFOrTest
-
-//    @Autowired
-//    public HomeController(HotelsService hotelsService){
-//
-//    }
 //
 //    @GetMapping("/")
-//    public String index(Model model){
+//    public String index(Model model) {
 //        List<Hotel> hotels = hotelsService.getAllHotels();
 //        model.addAttribute("message", "Hello from the other side!");
 //        model.addAttribute("hotels", hotels);
 //
-//            return "index";
-//        }
-    }
+//        return "index";
+//    }
+}
 

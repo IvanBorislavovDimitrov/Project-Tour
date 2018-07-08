@@ -1,11 +1,18 @@
 package app.config;
 
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 
-@Component
+import javax.persistence.EntityManagerFactory;
+import java.net.URISyntaxException;
+
+@Configuration
 public class BeanConfig {
 
     @Bean

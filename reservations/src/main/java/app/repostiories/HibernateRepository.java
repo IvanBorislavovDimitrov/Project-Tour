@@ -5,6 +5,8 @@ import app.repostiories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,7 +18,6 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
 
     public HibernateRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-
     }
 
     public Class<T> getEntityClass() {
@@ -33,13 +34,12 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
 
         Transaction transaction = session.beginTransaction();
 
-
         CriteriaBuilder builder = session.getCriteriaBuilder();
 
         CriteriaQuery<T> criteriaQuery = builder.createQuery(getEntityClass());
         criteriaQuery.from(getEntityClass());
 
-        List<T> entities=  session.createQuery(criteriaQuery)
+        List<T> entities = session.createQuery(criteriaQuery)
                 .getResultList();
 
         transaction.commit();
@@ -71,8 +71,7 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session
-                .save(entity);
+        session.save(entity);
 
         transaction.commit();
         session.close();

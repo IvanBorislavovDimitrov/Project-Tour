@@ -1,16 +1,18 @@
 package app.entities;
 
+import app.entities.base.ModelEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements ModelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -55,11 +57,12 @@ public class User {
         this.username = username;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    @Override
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -2,8 +2,6 @@ package app.model.dtos;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
-
 public class UserDto {
 
     @Length(min = 3)

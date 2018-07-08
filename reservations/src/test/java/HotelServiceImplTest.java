@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HotelServiceImplTest {
     @Test
-    public void getAllHotels_whenHotelsAreAvaible_expectTheHotels() {
+    public void getAllHotels_whenHotelsAreAvailable_expectTheHotels() {
         // Arrange
 
         List<Hotel> products = Arrays.asList(
