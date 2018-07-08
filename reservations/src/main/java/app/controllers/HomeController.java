@@ -21,7 +21,7 @@ public class HomeController {
         this.hotelsService = hotelsService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
