@@ -1,61 +1,30 @@
 package app.controllers;
 
 import app.entities.Hotel;
-import app.repostiories.HibernateRepository;
-import app.repostiories.base.GenericRepository;
 import app.services.api.HotelsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@RestController
+@Controller
 public class HotelsController {
+
     private final HotelsService hotelsService;
 
     @Autowired
     public HotelsController(HotelsService hotelsService){
-        this.hotelsService = hotelsService;
-
+       this.hotelsService = hotelsService;
     }
 
-//    @RequestMapping("/hotels")
-//    public List<Hotel> getHotels(){
-//
-//        return hotelsService.getAllHotels();
-//    }
+    @GetMapping("/hotels/{id}")
+    public String details(@PathVariable String id, Model model){
+        Hotel hotel = hotelsService.getHotelById(Integer.parseInt(id));
 
-    @RequestMapping("/hotels")
-    public List<Hotel> getHotelsByDestination(
-            @RequestParam(required = false) String destination,
-            @RequestParam(required = false) String page
-            ){
-       if(destination== null){
-           if(page.equals("")){
-               return hotelsService.getAllHotels();
-           }
-           else {
-               return hotelsService.getAllHotelsByPage(Integer.parseInt(page));
-           }
+         model.addAttribute("hotel", hotel);
 
-       }else {
-           if(page.equals("")){
-               return hotelsService.getHotelsByDestination(destination);
-           }
-           else {
-               return hotelsService.getHotelsByDestinationAndPage(destination, Integer.parseInt(page));
-           }
-       }
-
-    }
-
-    @RequestMapping("/hotels/{id}")
-    public Hotel getHotelDetails(@PathVariable("id") String id){
-        return hotelsService.getHotelById(Integer.parseInt(id));
+         return "hotels/details";
     }
 
 }

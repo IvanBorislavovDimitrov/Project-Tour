@@ -1,8 +1,8 @@
 package app.entities;
 
-import app.entities.base.Entity;
+import app.entities.base.ModelEntity;
 
-public class Reservation implements Entity {
+public class Reservation implements ModelEntity {
     @Override
     public int getId() {
         return 0;

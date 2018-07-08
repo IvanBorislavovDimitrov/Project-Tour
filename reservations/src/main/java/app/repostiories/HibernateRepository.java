@@ -1,17 +1,16 @@
 package app.repostiories;
 
-import app.entities.base.Entity;
+import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class HibernateRepository<T extends Entity> implements GenericRepository<T> {
+public class HibernateRepository<T extends ModelEntity> implements GenericRepository<T> {
     private final SessionFactory sessionFactory;
     private Class<T> entityClass;
 
@@ -51,11 +50,32 @@ public class HibernateRepository<T extends Entity> implements GenericRepository<
 
     @Override
     public T getById(int id) {
-        return null;
+
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<T> criteriaQuery = builder.createQuery(getEntityClass());
+
+        T entity = session.get(getEntityClass(), id);
+
+        transaction.commit();
+        session.close();
+
+        return entity;
     }
 
     @Override
     public T create(T entity) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session
+                .save(entity);
+
+        transaction.commit();
+        session.close();
+        return entity;
     }
 }

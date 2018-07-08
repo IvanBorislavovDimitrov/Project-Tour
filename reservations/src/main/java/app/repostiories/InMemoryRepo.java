@@ -1,14 +1,13 @@
 package app.repostiories;
 
-import app.entities.base.Entity;
+import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class InMemoryRepo<T extends Entity> implements GenericRepository<T> {
+public class InMemoryRepo<T extends ModelEntity> implements GenericRepository<T> {
      private List<T> entities;
 
 

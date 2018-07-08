@@ -1,34 +1,28 @@
 package app.entities;
 
+import app.entities.base.ModelEntity;
 
-import app.entities.base.Entity;
+import javax.persistence.*;
 
-public class Hotel implements Entity {
+@Entity
+@Table(name = "hotels")
+public class Hotel implements ModelEntity{
     private int id;
     private String name;
-    private String destination;
+    private Destination destination;
 
-    public Hotel(String name) {
-        setName(name);
+    public Hotel() {
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Hotel(int id, String name, Destination destination) {
+        this.id = id;
         this.name = name;
-    }
-
-    public String getDesination() {
-        return destination;
-    }
-
-    public void setDestination(String destination ) {
         this.destination = destination;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Override
     public int getId() {
         return id;
@@ -38,4 +32,28 @@ public class Hotel implements Entity {
     public void setId(int id) {
         this.id = id;
     }
+    public Hotel(String name) {
+        setName(name);
+    }
+
+    @Column(name = "name", length = 50, nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "destination_id", nullable = false)
+    public Destination getDesination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination ) {
+        this.destination = destination;
+    }
+
+
 }
