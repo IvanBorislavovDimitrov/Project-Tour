@@ -11,6 +11,7 @@ public class HotelServiceImplTest {
     @Test
     public void getAllHotels_whenHotelsAreAvaible_expectTheHotels() {
         // Arrange
+
         List<Hotel> products = Arrays.asList(
                 new Hotel(),
                 new Hotel()
