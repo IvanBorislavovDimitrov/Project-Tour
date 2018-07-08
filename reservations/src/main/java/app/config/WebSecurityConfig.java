@@ -1,6 +1,7 @@
 package app.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService) {
+    public WebSecurityConfig(@Qualifier("userServiceImp") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -41,4 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .userDetailsService(this.userDetailsService);
     }
+
+
 }
