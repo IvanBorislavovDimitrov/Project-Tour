@@ -57,6 +57,15 @@ public class DIConfig {
         return repo;
     }
 
+    @Bean(name = "Room")
+    @Autowired
+    public GenericRepository<Room> provideRoomGenericRepository(SessionFactory sessionFactory) {
+        GenericRepository<Room> repo = new HibernateRepository<>(sessionFactory);
+        repo.setEntityClass(Room.class);
+
+        return repo;
+    }
+
 
     @Bean
     public SessionFactory provideSessionFactory() {
