@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 public class HotelsController {
 
@@ -27,4 +29,10 @@ public class HotelsController {
          return "hotels/details";
     }
 
+    @GetMapping("/hotels")
+    public String index(Model model) {
+        List<Hotel> hotels = hotelsService.getAllHotels();
+
+        return "index";
+    }
 }

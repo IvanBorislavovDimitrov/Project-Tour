@@ -7,6 +7,7 @@ import app.repostiories.base.GenericRepository;
 import app.services.api.UserService;
 import app.validation_utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,7 +30,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private GenericRepository<User> userRepository;
 
     @Autowired
-    public UserServiceImp(PasswordEncoder passwordEncoder, GenericRepository<Role> roleRepository, GenericRepository<User> userRepository) {
+    public UserServiceImp(PasswordEncoder passwordEncoder, @Qualifier("Role") GenericRepository<Role> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;

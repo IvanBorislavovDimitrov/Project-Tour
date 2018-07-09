@@ -4,6 +4,7 @@ import app.entities.Hotel;
 import app.repostiories.base.GenericRepository;
 import app.services.api.HotelsService;
 import org.springframework.beans.InvalidPropertyException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,7 +19,7 @@ public class HotelServiceImpl implements HotelsService {
     private static final int PRODUCT_LEN_MIN = 4;
     private final GenericRepository<Hotel> hotelsRepository;
 
-    public HotelServiceImpl(GenericRepository<Hotel> hotelsRepository) {
+    public HotelServiceImpl(@Qualifier("Hotel") GenericRepository<Hotel> hotelsRepository) {
         this.hotelsRepository = hotelsRepository;
     }
 

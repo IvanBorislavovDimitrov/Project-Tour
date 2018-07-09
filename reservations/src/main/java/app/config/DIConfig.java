@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DIConfig {
 
-    @Bean
+    @Bean(name = "Hotel")
     @Autowired
     public GenericRepository<Hotel> provideHotelGenericRepository(SessionFactory sessionFactory) {
         GenericRepository<Hotel> repo = new HibernateRepository<>(sessionFactory);
@@ -21,7 +21,7 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean
+    @Bean(name = "Destination")
     @Autowired
     public GenericRepository<Destination> provideDestinationGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Destination> repo = new HibernateRepository<>(sessionFactory);
@@ -30,7 +30,7 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean
+    @Bean(name = "Reservation")
     @Autowired
     public GenericRepository<Reservation> provideReservationGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Reservation> repo = new HibernateRepository<>(sessionFactory);
@@ -39,7 +39,7 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean
+    @Bean(name = "Role")
     @Autowired
     public GenericRepository<Role> provideRoleGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Role> repo = new HibernateRepository<>(sessionFactory);
@@ -48,7 +48,7 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean
+    @Bean(name = "User")
     @Autowired
     public GenericRepository<User> provideUserGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<User> repo = new HibernateRepository<>(sessionFactory);

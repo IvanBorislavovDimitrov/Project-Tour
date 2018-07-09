@@ -1,21 +1,18 @@
 package app.repostiories;
 
-import app.entities.User;
 import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Component
+@Repository
 public class HibernateRepository<T extends ModelEntity> implements GenericRepository<T> {
     private final SessionFactory sessionFactory;
     private Class<T> entityClass;
@@ -32,7 +29,6 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
         this.entityClass = entityClass;
     }
 
-
     @Override
     public List<T> getAll() {
         Session session = sessionFactory.openSession();
@@ -41,12 +37,11 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         // Login
-        // TODO FIX IT -> NOT AN ENTRY // It works if you use normal query e.g (Select u From User u);
+        // TODO FIX IT -> NOT AN ENTRY // It works if you use a normal query e.g (Select u From User u);
         CriteriaQuery<T> criteriaQuery = builder.createQuery(this.entityClass);
         criteriaQuery.from(this.entityClass);
 
-        List<T> entities = session.createQuery(criteriaQuery)
-                .getResultList();
+        List<T> entities = session.createQuery(criteriaQuery).getResultList();
 
         transaction.commit();
         session.close();
@@ -60,8 +55,6 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
         Transaction transaction = session.beginTransaction();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
-
-        CriteriaQuery<T> criteriaQuery = builder.createQuery(getEntityClass());
 
         T entity = session.get(getEntityClass(), id);
 
