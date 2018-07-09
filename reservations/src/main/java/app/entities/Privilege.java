@@ -1,14 +1,12 @@
 package app.entities;
 
-import app.entities.base.ModelEntity;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role implements ModelEntity {
+public class Privilege {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +15,10 @@ public class Role implements ModelEntity {
     @Column(name = "name", unique = true)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users;
 
-    public Role() {
+    public Privilege() {
         this.users = new HashSet<>();
     }
 
@@ -28,7 +26,6 @@ public class Role implements ModelEntity {
         return this.id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }

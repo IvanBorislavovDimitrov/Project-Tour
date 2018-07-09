@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import javax.security.auth.login.Configuration;
 
 public class HibernateUtils {
     private static SessionFactory sessionFactory;
@@ -17,7 +16,7 @@ public class HibernateUtils {
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Destination.class);
         configuration.addAnnotatedClass(Reservation.class);
-        configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(Privilege.class);
         configuration.addAnnotatedClass(Hotel.class);
 
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();

@@ -1,6 +1,6 @@
 package app.services.imp;
 
-import app.entities.Role;
+import app.entities.Privilege;
 import app.model.dtos.UserDto;
 import app.entities.User;
 import app.repostiories.base.GenericRepository;
@@ -26,12 +26,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     private static final String INVALID_USER_MESSAGE = "Invalid user!";
     private PasswordEncoder passwordEncoder;
-    private GenericRepository<Role> roleRepository;
+    private GenericRepository<Privilege> roleRepository;
     private GenericRepository<User> userRepository;
 
     @Autowired
     public UserServiceImp(PasswordEncoder passwordEncoder,
-                          @Qualifier("Role") GenericRepository<Role> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
+                          @Qualifier("Role") GenericRepository<Privilege> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
@@ -46,7 +46,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                     this.setPhoneNumber(u.getPhone());
                     this.setUsername(u.getUsername());
                     this.setRoles(String.join(", ", u.getRoles().stream()
-                            .map(Role::getName).collect(Collectors.toList())));
+                            .map(Privilege::getName).collect(Collectors.toList())));
                 }})
                 .collect(Collectors.toList());
     }
@@ -60,22 +60,22 @@ public class UserServiceImp implements UserService, UserDetailsService {
         User user = new User(userDto.getUsername(), userDto.getEmail(), userDto.getPhoneNumber(),
                 this.passwordEncoder.encode(userDto.getPassword()));
 
-        List<Role> roles = this.roleRepository.getAll();
+        List<Privilege> roles = this.roleRepository.getAll();
         List<User> users = this.userRepository.getAll();
 
         if (users.size() == 0) {
-            Role role = roles.stream().filter(r -> r.getName().equals("ADMIN")).findFirst().orElse(null);
+            Privilege role = roles.stream().filter(r -> r.getName().equals("ADMIN")).findFirst().orElse(null);
             if (role == null) {
-                role = new Role();
+                role = new Privilege();
                 role.setName("ADMIN");
                 this.roleRepository.create(role);
             }
             role.getUsers().add(user);
             user.getRoles().add(role);
         } else {
-            Role role = roles.stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
+            Privilege role = roles.stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
             if (role == null) {
-                role = new Role();
+                role = new Privilege();
                 role.setName("USER");
                 this.roleRepository.create(role);
             }
@@ -95,7 +95,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User not found!");
         }
 
-        Set<Role> roles = user.getRoles();
+        Set<Privilege> roles = user.getRoles();
         Set<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName())).collect(Collectors.toSet());
 

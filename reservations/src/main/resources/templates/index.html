@@ -12,26 +12,30 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="/">Reservations</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a  sec:authorize="isAnonymous()" class="navbar-brand"  href="/register">Register here</a><br>
+                <a sec:authorize="isAnonymous()" class="navbar-brand" href="/register">Register here</a><br>
             </li>
             <li class="nav-item">
-                <a sec:authorize="isAnonymous()" class="navbar-brand"  href="/login">Log in</a><br>
+                <a sec:authorize="isAnonymous()" class="navbar-brand" href="/login">Log in</a><br>
             </li>
             <li class="nav-item">
-                <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/users">See all users</a><br>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/users">See all users</a><br>
             </li>
             <li class="nav-item">
-                <a sec:authorize="isAuthenticated()" class="navbar-brand"  href="/logout">Log out</a><br>
+                <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Log out</a><br>
+            </li>
+            <li class="nav-item">
+                <a th:text="${user}" class="navbar-brand" href="#"></a><br>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-1 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -39,7 +43,11 @@
 </nav>
 <br>
 <div sec:authorize="isAuthenticated()">
-   <h3>This content is only shown to authenticated users.</h3>
+    <h3>This content is only shown to authenticated users.</h3>
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <h3>You are an admin madafaka</h3>
 </div>
 </body>
 </html>

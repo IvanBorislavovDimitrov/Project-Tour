@@ -1,17 +1,15 @@
 package app.repostiories;
 
-import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public class HibernateRepository<T extends ModelEntity> implements GenericRepository<T> {
+public class HibernateRepository<T> implements GenericRepository<T> {
     private final SessionFactory sessionFactory;
     private Class<T> entityClass;
 

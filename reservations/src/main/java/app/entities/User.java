@@ -1,14 +1,12 @@
 package app.entities;
 
-import app.entities.base.ModelEntity;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements ModelEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +24,8 @@ public class User implements ModelEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Role.class)
-    private Set<Role> roles;
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Privilege.class)
+    private Set<Privilege> roles;
 
     public User() {
         this.roles = new HashSet<>();
@@ -61,7 +59,6 @@ public class User implements ModelEntity {
         return this.id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -82,11 +79,11 @@ public class User implements ModelEntity {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public Set<Privilege> getRoles() {
         return this.roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<Privilege> roles) {
         this.roles = roles;
     }
 }

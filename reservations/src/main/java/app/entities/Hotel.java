@@ -1,12 +1,10 @@
 package app.entities;
 
-import app.entities.base.ModelEntity;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "hotels")
-public class Hotel implements ModelEntity {
+public class Hotel {
     private int id;
     private String name;
     private Destination destination;
@@ -23,12 +21,10 @@ public class Hotel implements ModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }

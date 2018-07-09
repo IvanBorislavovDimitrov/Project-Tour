@@ -1,13 +1,11 @@
 package app.entities;
 
-import app.entities.base.ModelEntity;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "destinations")
-public class Destination implements ModelEntity {
+public class Destination {
 
     private int id;
     private String name;
@@ -25,12 +23,10 @@ public class Destination implements ModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -44,7 +40,7 @@ public class Destination implements ModelEntity {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
     public Set<Hotel> getHotels() {
         return hotels;
     }

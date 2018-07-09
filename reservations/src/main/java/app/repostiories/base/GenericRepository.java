@@ -1,10 +1,8 @@
 package app.repostiories.base;
 
-import app.entities.base.ModelEntity;
-
 import java.util.List;
 
-public interface GenericRepository<T extends ModelEntity> {
+public interface GenericRepository<T> {
     List<T> getAll();
 
     T getById(int id);

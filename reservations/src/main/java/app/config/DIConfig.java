@@ -41,9 +41,9 @@ public class DIConfig {
 
     @Bean(name = "Role")
     @Autowired
-    public GenericRepository<Role> provideRoleGenericRepository(SessionFactory sessionFactory) {
-        HibernateRepository<Role> repo = new HibernateRepository<>(sessionFactory);
-        repo.setEntityClass(Role.class);
+    public GenericRepository<Privilege> provideRoleGenericRepository(SessionFactory sessionFactory) {
+        HibernateRepository<Privilege> repo = new HibernateRepository<>(sessionFactory);
+        repo.setEntityClass(Privilege.class);
 
         return repo;
     }
