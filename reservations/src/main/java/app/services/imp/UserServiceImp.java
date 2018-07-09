@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,7 +30,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private GenericRepository<User> userRepository;
 
     @Autowired
-    public UserServiceImp(PasswordEncoder passwordEncoder, @Qualifier("Role") GenericRepository<Role> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
+    public UserServiceImp(PasswordEncoder passwordEncoder,
+                          @Qualifier("Role") GenericRepository<Role> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;

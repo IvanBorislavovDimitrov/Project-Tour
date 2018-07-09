@@ -44,7 +44,7 @@ public class Destination implements ModelEntity {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "destination", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "destination", fetch = FetchType.LAZY)
     public Set<Hotel> getHotels() {
         return hotels;
     }

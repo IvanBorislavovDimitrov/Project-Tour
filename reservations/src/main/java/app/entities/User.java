@@ -26,7 +26,7 @@ public class User implements ModelEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Role.class)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Role.class)
     private Set<Role> roles;
 
     public User() {

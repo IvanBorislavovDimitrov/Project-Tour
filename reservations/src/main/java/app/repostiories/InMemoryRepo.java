@@ -2,7 +2,6 @@ package app.repostiories;
 
 import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;

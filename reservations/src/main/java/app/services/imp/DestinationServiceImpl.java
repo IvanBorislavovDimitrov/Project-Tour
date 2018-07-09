@@ -6,15 +6,15 @@ import app.services.api.DestinationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @Transactional
 public class DestinationServiceImpl implements DestinationService {
 
-   private final GenericRepository<Destination> destinationRepository;
+    private final GenericRepository<Destination> destinationRepository;
 
     @Autowired
     public DestinationServiceImpl(@Qualifier("Destination") GenericRepository<Destination> destinationRepository) {
