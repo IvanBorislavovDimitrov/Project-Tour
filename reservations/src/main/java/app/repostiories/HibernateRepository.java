@@ -1,7 +1,9 @@
 package app.repostiories;
 
+import app.entities.User;
 import app.entities.base.ModelEntity;
 import app.repostiories.base.GenericRepository;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository
 public class HibernateRepository<T extends ModelEntity> implements GenericRepository<T> {
     private final SessionFactory sessionFactory;
     private Class<T> entityClass;
@@ -29,19 +31,21 @@ public class HibernateRepository<T extends ModelEntity> implements GenericReposi
         this.entityClass = entityClass;
     }
 
+
     @Override
     public List<T> getAll() {
         Session session = sessionFactory.openSession();
-        EntityManager entityManager = sessionFactory.createEntityManager();
         Transaction transaction = session.beginTransaction();
 
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
         // Login
         // TODO FIX IT -> NOT AN ENTRY // It works if you use a normal query e.g (Select u From User u);
-        CriteriaQuery<T> criteriaQuery = builder.createQuery(this.entityClass);
-        criteriaQuery.from(this.entityClass);
+        CriteriaQuery<T> criteriaQuery = builder.createQuery(getEntityClass());
+        criteriaQuery.from(getEntityClass());
 
-        List<T> entities = session.createQuery(criteriaQuery).getResultList();
+        List<T> entities = session.createQuery(criteriaQuery)
+                .getResultList();
 
         transaction.commit();
         session.close();

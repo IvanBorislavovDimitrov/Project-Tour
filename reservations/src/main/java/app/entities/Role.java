@@ -17,7 +17,7 @@ public class Role implements ModelEntity {
     @Column(name = "name", unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users;
 
     public Role() {

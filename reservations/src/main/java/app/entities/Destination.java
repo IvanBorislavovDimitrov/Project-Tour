@@ -8,6 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "destinations")
 public class Destination implements ModelEntity {
+
     private int id;
     private String name;
     private Set<Hotel> hotels;
