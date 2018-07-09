@@ -1,9 +1,13 @@
 package app.controllers;
 
+import app.entities.User;
 import app.model.dtos.UserDto;
+import app.model.dtos.UserProfileDto;
 import app.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +33,25 @@ public class UserController {
         return "users";
     }
 
+    @GetMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public String profilePage(Model model) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        UserProfileDto user = this.userService.findByUsername(principal.getUsername());
+        model.addAttribute("user", user);
+
+        return "profile";
+    }
+
     @GetMapping("/register")
     public String goToRegisterPage() {
+        return "register";
+    }
+
+    @GetMapping("/register-error")
+    public String goToRegisterErrorPage(Model model) {
+        model.addAttribute("registerError", true);
         return "register";
     }
 
@@ -40,7 +61,7 @@ public class UserController {
         try {
             this.userService.register(userDto);
         } catch (IllegalArgumentException e) {
-            return "redirect:/register";
+            return "redirect:/register-error";
         }
         return "redirect:/login";
     }

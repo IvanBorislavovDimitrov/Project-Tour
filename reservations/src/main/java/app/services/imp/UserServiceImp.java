@@ -3,6 +3,7 @@ package app.services.imp;
 import app.entities.Privilege;
 import app.model.dtos.UserDto;
 import app.entities.User;
+import app.model.dtos.UserProfileDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.UserService;
 import app.validation_utils.ValidationUtil;
@@ -84,6 +85,19 @@ public class UserServiceImp implements UserService, UserDetailsService {
         }
 
         this.userRepository.create(user);
+    }
+
+    @Override
+    public UserProfileDto findByUsername(String username) {
+        return this.userRepository.getAll().stream()
+                .filter(user -> user.getUsername().equals(username))
+                .map(user -> new UserProfileDto(){{
+                    this.setEmail(user.getEmail());
+                    this.setUsername(user.getUsername());
+                    this.setPhoneNumber(user.getPhone());
+                }})
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

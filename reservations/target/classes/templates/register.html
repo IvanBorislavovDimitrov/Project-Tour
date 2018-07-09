@@ -61,6 +61,7 @@
                 <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
             </div>
         </div>
+        <h4 th:if="${registerError}" class="error">Every column must be at least 3 symbols long!</h4>
         <button type="submit" class="btn btn-primary">Register</button>
     </fieldset>
 </form>
