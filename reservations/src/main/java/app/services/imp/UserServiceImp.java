@@ -46,7 +46,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                     this.setPassword(u.getPassword());
                     this.setPhoneNumber(u.getPhone());
                     this.setUsername(u.getUsername());
-                    this.setRoles(String.join(", ", u.getRoles().stream()
+                    this.setRoles(String.join(", ", u.getPrivileges().stream()
                             .map(Privilege::getName).collect(Collectors.toList())));
                 }})
                 .collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 this.roleRepository.create(role);
             }
             role.getUsers().add(user);
-            user.getRoles().add(role);
+            user.getPrivileges().add(role);
         } else {
             Privilege role = roles.stream().filter(r -> r.getName().equals("USER")).findFirst().orElse(null);
             if (role == null) {
@@ -81,7 +81,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 this.roleRepository.create(role);
             }
             role.getUsers().add(user);
-            user.getRoles().add(role);
+            user.getPrivileges().add(role);
         }
 
         this.userRepository.create(user);
@@ -109,7 +109,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("User not found!");
         }
 
-        Set<Privilege> roles = user.getRoles();
+        Set<Privilege> roles = user.getPrivileges();
         Set<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName())).collect(Collectors.toSet());
 

@@ -1,4 +1,5 @@
 import app.entities.Hotel;
+import app.model.dtos.HotelDto;
 import app.repostiories.base.GenericRepository;
 import app.services.imp.HotelServiceImpl;
 import org.junit.Assert;
@@ -43,7 +44,7 @@ public class HotelServiceImplTest {
 
         // Act
 
-        List<Hotel> actualHotels= service.getAllHotels();
+        List<HotelDto> actualHotels= service.getAllHotels();
 
         // Assert
 
@@ -123,8 +124,10 @@ public class HotelServiceImplTest {
         HotelServiceImpl service = new HotelServiceImpl(repo);
         Hotel hotel =  new Hotel();
         hotel.setName("aa");
+        HotelDto hotelDto = new HotelDto();
+        hotelDto.setName(hotel.getName());
         //Act
-      service.createHotel(hotel);
+      service.createHotel(hotelDto);
 
         //Assert
 
@@ -163,8 +166,10 @@ public class HotelServiceImplTest {
         HotelServiceImpl service = new HotelServiceImpl(repo);
         Hotel hotel =  new Hotel();
         hotel.setName("asdf");
+        HotelDto hotelDto = new HotelDto();
+        hotelDto.setName(hotel.getName());
         //Act
-        service.createHotel(hotel);
+        service.createHotel(hotelDto);
 
         //Assert
 

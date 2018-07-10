@@ -25,10 +25,13 @@ public class User {
     private String password;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Privilege.class)
-    private Set<Privilege> roles;
+    private Set<Privilege> privileges;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Reservation> reservations;
 
     public User() {
-        this.roles = new HashSet<>();
+        this.privileges = new HashSet<>();
     }
 
     public User(String name, String email, String phoneNumber, String password) {
@@ -36,7 +39,8 @@ public class User {
         this.email = email;
         this.phone = phoneNumber;
         this.password = password;
-        this.roles = new HashSet<>();
+        this.privileges = new HashSet<>();
+        this.reservations = new HashSet<>();
     }
 
     public String getPhone() {
@@ -79,11 +83,19 @@ public class User {
         this.password = password;
     }
 
-    public Set<Privilege> getRoles() {
-        return this.roles;
+    public Set<Privilege> getPrivileges() {
+        return this.privileges;
     }
 
-    public void setRoles(Set<Privilege> roles) {
-        this.roles = roles;
+    public void setPrivileges(Set<Privilege> roles) {
+        this.privileges = roles;
+    }
+
+    public Set<Reservation> getReservations() {
+        return this.reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

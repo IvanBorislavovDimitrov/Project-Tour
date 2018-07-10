@@ -9,16 +9,14 @@ import java.util.Set;
 public class Hotel {
     private int id;
     private String name;
-    private Destination destination;
     private Set<Room> rooms;
 
     public Hotel() {
     }
 
-    public Hotel(int id, String name, Destination destination) {
+    public Hotel(int id, String name) {
         setId(id);
         setName(name);
-        setDestination(destination);
         this.rooms = new HashSet<>();
     }
 
@@ -44,16 +42,6 @@ public class Hotel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "destination_id", nullable = false)
-    public Destination getDestination() {
-        return destination;
-    }
-
-    public void setDestination(Destination destination) {
-        this.destination = destination;
     }
 
     @OneToMany(mappedBy = "hotel")

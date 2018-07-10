@@ -14,11 +14,11 @@ public class HibernateUtils {
                 .configure();
 
         configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Destination.class);
         configuration.addAnnotatedClass(Reservation.class);
         configuration.addAnnotatedClass(Privilege.class);
         configuration.addAnnotatedClass(Hotel.class);
         configuration.addAnnotatedClass(Room.class);
+        configuration.addAnnotatedClass(TourGuide.class);
 
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
 

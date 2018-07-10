@@ -30,26 +30,6 @@ public class HotelsRestController {
 //        return hotelsService.getAllHotels();
 //    }
 
-    @RequestMapping("/hotels")
-    public List<Hotel> getHotelsByDestination(
-            @RequestParam(required = false) String destination,
-            @RequestParam(required = false) String page) {
-        if (destination == null) {
-            if (page.equals("")) {
-                return hotelsService.getAllHotels();
-            } else {
-                return hotelsService.getAllHotelsByPage(Integer.parseInt(page));
-            }
-
-        } else {
-            if (page.equals("")) {
-                return hotelsService.getHotelsByDestination(destination);
-            } else {
-                return hotelsService.getHotelsByDestinationAndPage(destination, Integer.parseInt(page));
-            }
-        }
-
-    }
 
     @RequestMapping("/hotels/{id}")
     public Hotel getHotelDetails(@PathVariable("id") String id) {

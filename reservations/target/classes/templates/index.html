@@ -42,12 +42,6 @@
     </div>
 </nav>
 <br>
-<div sec:authorize="isAuthenticated()">
-    <h3>This content is only shown to authenticated users.</h3>
-</div>
-
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    <h3>You are an admin madafaka</h3>
-</div>
+<p th:each="hotel : ${hotels}"></p>
 </body>
 </html>

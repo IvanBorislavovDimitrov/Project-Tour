@@ -24,6 +24,7 @@ public class BeanConfig {
 
                 return authentication.getName();
             }
+
         }
 
         return null;

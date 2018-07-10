@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.entities.Hotel;
+import app.model.dtos.HotelDto;
 import app.services.api.HotelsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class HotelsController {
 
     @GetMapping("/hotels")
     public String index(Model model) {
-        List<Hotel> hotels = hotelsService.getAllHotels();
+        List<HotelDto> hotels = hotelsService.getAllHotels();
 
         return "index";
     }

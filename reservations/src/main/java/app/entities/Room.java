@@ -86,4 +86,6 @@ public class Room {
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+
 }

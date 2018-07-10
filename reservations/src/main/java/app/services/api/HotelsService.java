@@ -1,23 +1,18 @@
 package app.services.api;
 
-import app.entities.Destination;
 import app.entities.Hotel;
+import app.model.dtos.HotelDto;
 
 import java.util.List;
 
 public interface HotelsService {
-    List<Hotel> getAllHotels();
-
-    List<Hotel> getHotelsByDestination(String destination);
+    List<HotelDto> getAllHotels();
 
     Hotel getHotelById(int id);
 
+    List<HotelDto> getAllHotelsByPage(int pageNum);
 
-    List<Hotel> getAllHotelsByPage(int pageNum);
-
-    List<Hotel> getHotelsByDestinationAndPage(String destination, int page);
-
-    void createHotel(Hotel hotel);
+    void createHotel(HotelDto hotel);
 
     //CRUD methods
 }

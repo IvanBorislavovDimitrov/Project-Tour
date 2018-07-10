@@ -7,16 +7,20 @@ import java.util.Set;
 @Entity
 @Table(name = "guides")
 public class TourGuide {
+
     private int id;
+
     private String name;
 
+    private Set<Reservation> reservations;
 
     public TourGuide() {
+        this.reservations = new HashSet<>();
     }
 
-    public TourGuide( String name) {
+    public TourGuide(String name) {
         setName(name);
-       reservations = new HashSet<>();
+        this.reservations = new HashSet<>();
     }
 
     @Id
@@ -39,16 +43,13 @@ public class TourGuide {
         this.name = name;
     }
 
-    @ManyToMany(cascade = {
-            CascadeType.ALL})
-    @JoinTable(
-            name = "guides_resevations",
-            joinColumns = {@JoinColumn(name = "guide_id")},
-            inverseJoinColumns = {@JoinColumn(name = "id")}
-    )
-   private  Set<Reservation> reservations = new HashSet<>();
 
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    @OneToMany(mappedBy = "tourGuide")
+    public Set<Reservation> getReservations() {
+        return this.reservations;
     }
 }

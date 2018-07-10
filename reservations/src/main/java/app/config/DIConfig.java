@@ -21,15 +21,6 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean(name = "Destination")
-    @Autowired
-    public GenericRepository<Destination> provideDestinationGenericRepository(SessionFactory sessionFactory) {
-        HibernateRepository<Destination> repo = new HibernateRepository<>(sessionFactory);
-        repo.setEntityClass(Destination.class);
-
-        return repo;
-    }
-
     @Bean(name = "Reservation")
     @Autowired
     public GenericRepository<Reservation> provideReservationGenericRepository(SessionFactory sessionFactory) {
