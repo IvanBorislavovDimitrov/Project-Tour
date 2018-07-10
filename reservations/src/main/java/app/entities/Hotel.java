@@ -1,6 +1,8 @@
 package app.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "hotels")
@@ -8,14 +10,16 @@ public class Hotel {
     private int id;
     private String name;
     private Destination destination;
+    private Set<Room> rooms;
 
     public Hotel() {
     }
 
     public Hotel(int id, String name, Destination destination) {
-        this.id = id;
-        this.name = name;
-        this.destination = destination;
+        setId(id);
+        setName(name);
+        setDestination(destination);
+        this.rooms = new HashSet<>();
     }
 
     @Id
@@ -52,5 +56,12 @@ public class Hotel {
         this.destination = destination;
     }
 
+    @OneToMany(mappedBy = "hotel")
+    public Set<Room> getRooms() {
+        return rooms;
+    }
 
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
 }

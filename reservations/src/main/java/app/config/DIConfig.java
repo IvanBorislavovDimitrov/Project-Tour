@@ -66,6 +66,14 @@ public class DIConfig {
         return repo;
     }
 
+    @Bean(name = "TourGuide")
+    @Autowired
+    public GenericRepository<TourGuide> provideGuidesGenericRepository(SessionFactory sessionFactory) {
+        GenericRepository<TourGuide> repo = new HibernateRepository<>(sessionFactory);
+        repo.setEntityClass(TourGuide.class);
+
+        return repo;
+    }
 
     @Bean
     public SessionFactory provideSessionFactory() {

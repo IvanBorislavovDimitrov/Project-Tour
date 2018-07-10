@@ -1,6 +1,9 @@
 package app.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rooms")
@@ -10,20 +13,22 @@ public class Room {
     private Hotel hotel;
     private double price;
     private String city;
+    private Set<Reservation> reservations;
+
 
     public Room() {
     }
 
-    public Room(int id, int numOfBeds, Hotel hotel, double price, String city) {
-    setId(id);
-    setNumOfBeds(numOfBeds);
-    setHotel(hotel);
-    setPrice(price);
-    setCity(city);
+    public Room(int numOfBeds, Hotel hotel, double price, String city) {
+        setNumOfBeds(numOfBeds);
+        setHotel(hotel);
+        setPrice(price);
+        setCity(city);
+        setReservations(new HashSet<>());
     }
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -52,7 +57,7 @@ public class Room {
     }
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id", nullable = false)
+    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     public Hotel getHotel() {
         return hotel;
     }
@@ -68,5 +73,17 @@ public class Room {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "rooms_reservations" ,
+    joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id"))
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

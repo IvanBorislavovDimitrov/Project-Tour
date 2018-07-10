@@ -18,6 +18,7 @@ public class HibernateUtils {
         configuration.addAnnotatedClass(Reservation.class);
         configuration.addAnnotatedClass(Privilege.class);
         configuration.addAnnotatedClass(Hotel.class);
+        configuration.addAnnotatedClass(Room.class);
 
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
 

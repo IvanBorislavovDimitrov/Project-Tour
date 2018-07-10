@@ -4,6 +4,7 @@ import app.repostiories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,6 +36,7 @@ public class HibernateRepository<T> implements GenericRepository<T> {
         CriteriaQuery<T> criteriaQuery = builder.createQuery(getEntityClass());
         criteriaQuery.from(getEntityClass());
 
+
         List<T> entities = session.createQuery(criteriaQuery).getResultList();
 
         transaction.commit();
@@ -50,7 +52,7 @@ public class HibernateRepository<T> implements GenericRepository<T> {
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
 
-        T entity = session.get(getEntityClass(), id);
+        T entity = session.load(getEntityClass(), id);
 
         transaction.commit();
         session.close();

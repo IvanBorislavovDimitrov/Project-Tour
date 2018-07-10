@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 public class HotelServiceImpl implements HotelsService {
 
     private static final int PAGE_SIZE = 10;
-    private static final int PRODUCT_LEN_MIN = 4;
+    private static final int HOTEL_LEN_MIN = 4;
     private final GenericRepository<Hotel> hotelsRepository;
 
-    public HotelServiceImpl(@Qualifier("Hotel") GenericRepository<Hotel> hotelsRepository) {
+    public HotelServiceImpl(GenericRepository<Hotel> hotelsRepository) {
         this.hotelsRepository = hotelsRepository;
     }
 
@@ -64,7 +64,7 @@ public class HotelServiceImpl implements HotelsService {
 
     @Override
     public void createHotel(Hotel hotel) {
-        if(hotel.getName().length()<PRODUCT_LEN_MIN){
+        if(hotel.getName().length()<HOTEL_LEN_MIN){
             throw  new InvalidPropertyException(Hotel.class, "name", "Invalid length");
         }
         hotelsRepository.create(hotel);

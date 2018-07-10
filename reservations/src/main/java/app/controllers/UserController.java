@@ -42,6 +42,7 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "profile";
+
     }
 
     @GetMapping("/register")
