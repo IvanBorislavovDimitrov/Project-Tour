@@ -1,10 +1,13 @@
 package app.services.imp;
 
 import app.entities.Hotel;
+import app.entities.Room;
 import app.model.dtos.HotelDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.HotelService;
+import app.validation_utils.ValidationUtil;
 import org.springframework.beans.InvalidPropertyException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +21,12 @@ public class HotelServiceImpl implements HotelService {
     private static final int PAGE_SIZE = 10;
     private static final int HOTEL_LEN_MIN = 4;
     private final GenericRepository<Hotel> hotelsRepository;
+    private final GenericRepository<Room> roomGenericRepository;
 
-    public HotelServiceImpl(GenericRepository<Hotel> hotelsRepository) {
+    @Autowired
+    public HotelServiceImpl(GenericRepository<Hotel> hotelsRepository, GenericRepository<Room> roomGenericRepository) {
         this.hotelsRepository = hotelsRepository;
+        this.roomGenericRepository = roomGenericRepository;
     }
 
     @Override
@@ -51,22 +57,21 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void createHotel(HotelDto hotelDto) {
-        if (hotelDto.getName().length() < HOTEL_LEN_MIN) {
-            throw new InvalidPropertyException(Hotel.class, "name", "Invalid length");
+        if (!ValidationUtil.isValid(hotelDto)) {
+            throw new IllegalArgumentException("Invalid hotel!");
         }
-        Hotel hotel = new Hotel() {{
-            this.setName(hotelDto.getName());
-            this.setCity(hotelDto.getCity());
-            this.setStars(hotelDto.getStars());
-        }};
+        Hotel hotel = new Hotel();
+        hotel.setStars(hotelDto.getStars());
+        hotel.setName(hotelDto.getName());
+        hotel.setCity(hotelDto.getCity());
 
-        hotelsRepository.create(hotel);
+        this.hotelsRepository.create(hotel);
     }
 
     @Override
     public List<HotelDto> getHotelsByName(String name) {
         return this.getAllHotels().stream()
-                .filter(hotelDto -> hotelDto.getName().equals(name))
+                .filter(hotelDto -> hotelDto.getName().equalsIgnoreCase(name))
                 .collect(Collectors.toList());
     }
 }

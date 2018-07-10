@@ -30,7 +30,7 @@ public class DIConfig {
         return repo;
     }
 
-    @Bean(name = "Role")
+    @Bean(name = "Privilege")
     @Autowired
     public GenericRepository<Privilege> provideRoleGenericRepository(SessionFactory sessionFactory) {
         HibernateRepository<Privilege> repo = new HibernateRepository<>(sessionFactory);

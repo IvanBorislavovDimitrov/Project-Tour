@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -17,23 +18,20 @@ public class HotelsController {
     private final HotelService hotelsService;
 
     @Autowired
-    public HotelsController(HotelService hotelsService){
-       this.hotelsService = hotelsService;
+    public HotelsController(HotelService hotelsService) {
+        this.hotelsService = hotelsService;
     }
 
-    @GetMapping("/hotels/{id}")
-    public String details(@PathVariable String id, Model model){
-        Hotel hotel = hotelsService.getHotelById(Integer.parseInt(id));
+    @GetMapping("/createHotel")
+    public String createHotel() {
 
-         model.addAttribute("hotel", hotel);
-
-         return "hotels/details";
+        return "createHotel";
     }
 
-    @GetMapping("/hotels")
-    public String index(Model model) {
-        List<HotelDto> hotels = hotelsService.getAllHotels();
+    @PostMapping("createHotel")
+    public String createHotel(HotelDto hotelDto) {
+        this.hotelsService.createHotel(hotelDto);
 
-        return "index";
+        return "redirect:/";
     }
 }

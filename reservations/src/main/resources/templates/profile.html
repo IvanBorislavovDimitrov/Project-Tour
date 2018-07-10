@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
@@ -22,7 +22,7 @@
                 <a sec:authorize="isAnonymous()" class="navbar-brand" href="/login">Log in</a><br>
             </li>
             <li class="nav-item">
-                <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/users">See all users</a><br>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/users">See all users</a><br>
             </li>
             <li class="nav-item">
                 <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Log out</a><br>

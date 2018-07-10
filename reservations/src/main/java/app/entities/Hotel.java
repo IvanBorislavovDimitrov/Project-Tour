@@ -14,6 +14,7 @@ public class Hotel {
     private int stars;
 
     public Hotel() {
+        this.rooms = new HashSet<>();
     }
 
     public Hotel(int id, String name) {
