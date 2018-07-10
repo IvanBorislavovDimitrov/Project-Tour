@@ -1,14 +1,11 @@
 package app.services.imp;
 
 import app.entities.Hotel;
-import app.entities.Privilege;
 import app.entities.Room;
-import app.entities.User;
 import app.model.dtos.RoomDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.RoomService;
 import app.validation_utils.ValidationUtil;
-import org.springframework.beans.InvalidPropertyException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
