@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class HotelServiceImpl implements HotelService {
 
     private static final int PAGE_SIZE = 10;
-    private static final int HOTEL_LEN_MIN = 4;
     private final GenericRepository<Hotel> hotelsRepository;
     private final GenericRepository<Room> roomGenericRepository;
 

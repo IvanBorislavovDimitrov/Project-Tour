@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class RoomServiceImplement implements RoomService {
     private static final String INVALID_ROOM_MESSAGE = "Min price is hihger!";
+    private static final int PAGE_SIZE = 10;
     private final GenericRepository<Room> roomsRepository;
     private final GenericRepository<Hotel> hotelsRepository;
 
@@ -24,8 +26,22 @@ public class RoomServiceImplement implements RoomService {
     }
 
     @Override
-    public List<RoomDto> getAllRoomsByHotel() {
-        return null;
+    public List<RoomDto> getAllRoomsByHotel(String hotelName) {
+        List<Room> rooms = roomsRepository.getAll();
+
+
+       List<RoomDto>  roomDtoToReturn = rooms.stream()
+                .filter(x -> x.getHotel().getName().equals(hotelName))
+                .map(r -> {
+                    final RoomDto roomDto = new RoomDto();
+                   roomDto.setHotel(r.getHotel().getName());
+                   roomDto.setNumOfBeds(r.getNumOfBeds());
+                   roomDto.setPrice(r.getPrice());
+
+                return roomDto;
+                })
+                .collect(Collectors.toList());
+        return roomDtoToReturn;
     }
 
     @Override
@@ -34,14 +50,13 @@ public class RoomServiceImplement implements RoomService {
     }
 
     @Override
-    public List<Room> getAllRoomsByPage(int pageNum) {
-        return null;
+    public List<RoomDto> getRoomsByHotelAndPage(String hotelName, int pageNum) {
+        int fromIndex = pageNum * PAGE_SIZE;
+        int toIndex = (pageNum + 1) * PAGE_SIZE;
+
+        return getAllRoomsByHotel(hotelName).subList(fromIndex, toIndex);
     }
 
-    @Override
-    public List<Room> getRoomsByHotelAndPage(Hotel hotel, int page) {
-        return null;
-    }
 
     @Override
     public void createRoom(RoomDto roomdto) {
@@ -59,7 +74,6 @@ public class RoomServiceImplement implements RoomService {
 
             Room room = new Room();
             room.setNumOfBeds(roomdto.getNumOfBeds());
-            room.setCity(roomdto.getCity());
             room.setPrice(roomdto.getPrice());
             room.setHotel(hotel);
 

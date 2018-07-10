@@ -8,7 +8,6 @@ public class RoomDto {
     private int numOfBeds;
     private String hotel;
     private double price;
-    private String city;
 
     public RoomDto() {
     }
@@ -38,11 +37,4 @@ public class RoomDto {
         this.price = price;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 }

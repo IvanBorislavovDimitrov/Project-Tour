@@ -12,18 +12,16 @@ public class Room {
     private int numOfBeds;
     private Hotel hotel;
     private double price;
-    private String city;
     private Set<Reservation> reservations;
 
 
     public Room() {
     }
 
-    public Room(int numOfBeds, Hotel hotel, double price, String city) {
+    public Room(int numOfBeds, Hotel hotel, double price) {
         setNumOfBeds(numOfBeds);
         setHotel(hotel);
         setPrice(price);
-        setCity(city);
         setReservations(new HashSet<>());
     }
 
@@ -45,15 +43,6 @@ public class Room {
 
     public void setNumOfBeds(int numOfBeds) {
         this.numOfBeds = numOfBeds;
-    }
-
-    @Column(name = "City", length = 50, nullable = false)
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     @ManyToOne

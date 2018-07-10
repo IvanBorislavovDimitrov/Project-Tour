@@ -9,14 +9,11 @@ import java.util.List;
 
 @Service
 public interface RoomService {
-    List<RoomDto> getAllRoomsByHotel();
+    List<RoomDto> getAllRoomsByHotel(String hotelName);
 
     Room getRoomById(int id);
 
-
-    List<Room> getAllRoomsByPage(int pageNum);
-
-    List<Room> getRoomsByHotelAndPage(Hotel hotel, int page);
+    List<RoomDto> getRoomsByHotelAndPage(String hotel, int page);
 
     void createRoom(RoomDto room);
 
