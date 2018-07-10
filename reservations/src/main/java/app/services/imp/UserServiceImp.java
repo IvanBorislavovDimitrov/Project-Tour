@@ -42,14 +42,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public List<UserDto> findAll() {
         return this.userRepository.getAll().stream()
-                .map(u -> new UserDto() {{
-                    this.setEmail(u.getEmail());
-                    this.setPassword(u.getPassword());
-                    this.setPhoneNumber(u.getPhone());
-                    this.setUsername(u.getUsername());
-                    this.setRoles(String.join(", ", u.getPrivileges().stream()
-                            .map(Privilege::getName).collect(Collectors.toList())));
-                }})
+                .map(u -> new UserDto(u.getUsername(), u.getEmail(), u.getPhone(), u.getPassword(), u.getEmail()))
                 .collect(Collectors.toList());
     }
 

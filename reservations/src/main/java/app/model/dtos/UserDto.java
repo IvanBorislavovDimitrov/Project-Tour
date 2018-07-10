@@ -21,6 +21,14 @@ public class UserDto {
     public UserDto() {
     }
 
+    public UserDto(@Length(min = 3) String username, @Length(min = 3) String email, @Length(min = 3) String phoneNumber, @Length(min = 3) String password, String roles) {
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.roles = roles;
+    }
+
     public String getUsername() {
         return this.username;
     }
