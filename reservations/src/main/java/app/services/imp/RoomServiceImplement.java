@@ -57,12 +57,11 @@ public class RoomServiceImplement implements RoomService {
 
         if (hotel != null) {
 
-            Room room = new Room() {{
-                setNumOfBeds(roomdto.getNumOfBeds());
-                setCity(roomdto.getCity());
-                setPrice(roomdto.getPrice());
-                setHotel(hotel);
-            }};
+            Room room = new Room();
+            room.setNumOfBeds(roomdto.getNumOfBeds());
+            room.setCity(roomdto.getCity());
+            room.setPrice(roomdto.getPrice());
+            room.setHotel(hotel);
 
             hotel.getRooms().add(room);
             roomsRepository.create(room);
