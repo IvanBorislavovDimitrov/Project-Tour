@@ -9,16 +9,14 @@ import java.util.List;
 
 @Service
 public interface RoomService {
-    List<Room> getAllRooms();
-
-    List<Room> getRoomsByCity(String city);
+    List<Room> getAllRoomsByHotel();
 
     Room getRoomById(int id);
 
 
     List<Room> getAllRoomsByPage(int pageNum);
 
-    List<Room> getRoomsByCityAndPage(String city, int page);
+    List<Room> getRoomsByHotelAndPage(Hotel hotel, int page);
 
     void createRoom(Room room);
 }
