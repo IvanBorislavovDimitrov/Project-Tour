@@ -29,6 +29,8 @@ public class HotelServiceImpl implements HotelsService {
         return hotelsRepository.getAll().stream()
                 .map(hotel -> new HotelDto() {{
                     this.setName(hotel.getName());
+                    this.setCity(hotel.getCity());
+                    this.setStars(hotel.getStars());
                 }})
                 .collect(Collectors.toList());
     }
@@ -54,6 +56,8 @@ public class HotelServiceImpl implements HotelsService {
         }
         Hotel hotel = new Hotel() {{
             this.setName(hotelDto.getName());
+            this.setCity(hotelDto.getCity());
+            this.setStars(hotelDto.getStars());
         }};
 
         hotelsRepository.create(hotel);

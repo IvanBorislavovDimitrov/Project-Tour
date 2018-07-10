@@ -10,6 +10,8 @@ public class Hotel {
     private int id;
     private String name;
     private Set<Room> rooms;
+    private String city;
+    private int stars;
 
     public Hotel() {
     }
@@ -51,5 +53,21 @@ public class Hotel {
 
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getStars() {
+        return this.stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 }

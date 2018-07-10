@@ -42,6 +42,22 @@
     </div>
 </nav>
 <br>
-<p th:each="hotel : ${hotels}"></p>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Hotel</th>
+        <th scope="col">City</th>
+        <th scope="col">Stars</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-active" th:each="hotel : ${hotels}">
+        <td th:text="${hotel.getName()}"></td>
+        <td th:text="${hotel.getCity()}"></td>
+        <td th:text="${hotel.getStars()}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
