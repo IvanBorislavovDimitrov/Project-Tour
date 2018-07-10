@@ -1,21 +1,29 @@
 package app.services.imp;
 
 import app.entities.Hotel;
+import app.entities.Privilege;
 import app.entities.Room;
+import app.entities.User;
 import app.model.dtos.RoomDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.RoomService;
+import app.validation_utils.ValidationUtil;
 import org.springframework.beans.InvalidPropertyException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class RoomServiceImplement implements RoomService {
-    private static final double PRICE_MIN = 10;
+    private static final String INVALID_ROOM_MESSAGE = "Min price is hihger!";
     private final GenericRepository<Room> roomsRepository;
+    private final GenericRepository<Hotel> hotelsRepository;
 
-    public RoomServiceImplement(GenericRepository<Room> roomsRepository) {
-        this.roomsRepository= roomsRepository;
+    public RoomServiceImplement(GenericRepository<Room> roomsRepository, GenericRepository<Hotel> hotelsRepository) {
+        this.roomsRepository = roomsRepository;
+        this.hotelsRepository = hotelsRepository;
     }
 
     @Override
@@ -24,7 +32,7 @@ public class RoomServiceImplement implements RoomService {
     }
 
     @Override
-    public Room getRoomById(int id){
+    public Room getRoomById(int id) {
         return roomsRepository.getById(id);
     }
 
@@ -40,17 +48,29 @@ public class RoomServiceImplement implements RoomService {
 
     @Override
     public void createRoom(RoomDto roomdto) {
-        if (roomdto.getPrice() < PRICE_MIN) {
-            throw new InvalidPropertyException(Room.class, "price", "Some price needed");
+        if (!ValidationUtil.isValid(roomdto)) {
+            throw new IllegalArgumentException(INVALID_ROOM_MESSAGE);
         }
-       Room room = new Room(){{
-            setNumOfBeds(roomdto.getNumOfBeds());
-            setCity(roomdto.getCity());
-           setPrice(roomdto.getPrice());
 
-        }};
 
-       roomsRepository.create(room);
+        Hotel hotel = hotelsRepository.getAll().stream()
+                .filter(x -> x.getName().equals(roomdto.getHotel()))
+                .findAny()
+                .orElse(null);
+
+        if (hotel != null) {
+
+            Room room = new Room() {{
+                setNumOfBeds(roomdto.getNumOfBeds());
+                setCity(roomdto.getCity());
+                setPrice(roomdto.getPrice());
+                setHotel(hotel);
+            }};
+
+            hotel.getRooms().add(room);
+            roomsRepository.create(room);
+        }
+
     }
 }
 

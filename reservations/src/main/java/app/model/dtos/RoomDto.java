@@ -2,6 +2,8 @@ package app.model.dtos;
 
 import app.entities.Hotel;
 
+import javax.validation.constraints.Min;
+
 public class RoomDto {
     private int numOfBeds;
     private String hotel;
@@ -27,6 +29,7 @@ public class RoomDto {
         this.hotel = hotel;
     }
 
+    @Min(10)
     public double getPrice() {
         return price;
     }
