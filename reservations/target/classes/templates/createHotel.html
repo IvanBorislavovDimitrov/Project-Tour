@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Log in</title>
+    <title>Title</title>
     <link rel="stylesheet" href="/styles/bootstrap.css">
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="/">Reservations</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
@@ -27,11 +28,36 @@
             <li class="nav-item">
                 <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Log out</a><br>
             </li>
+            <li class="nav-item">
+                <a class="navbar-brand" href="/search">Search</a><br>
+            </li>
         </ul>
     </div>
 </nav>
-<h3 th:text="|Username: ${user.getUsername()}|"></h3>
-<h3 th:text="|Email: ${user.getEmail()}|"></h3>
-<h3 th:text="|Phone number: ${user.getPhoneNumber()}|"></h3>
+
+<form th:action="@{/createHotel}" method="post">
+    <fieldset>
+        <legend>Register</legend>
+        <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="username">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">City</label>
+            <div class="col-sm-10">
+                <input type="text" name="city" class="form-control" id="password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label">Stars</label>
+            <div class="col-sm-10">
+                <input type="number" name="stars" class="form-control" id="email">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register hotel</button>
+    </fieldset>
+</form>
 </body>
 </html>

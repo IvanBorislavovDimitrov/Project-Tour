@@ -33,7 +33,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Autowired
     public UserServiceImp(PasswordEncoder passwordEncoder,
-                          @Qualifier("Role") GenericRepository<Privilege> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
+                          @Qualifier("Privilege") GenericRepository<Privilege> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
@@ -93,10 +93,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return this.userRepository.getAll().stream()
                 .filter(user -> user.getUsername().equals(username))
                 .map(user -> new UserProfileDto(){{
-                    this.setEmail(user.getEmail());
-                    this.setUsername(user.getUsername());
-                    this.setPhoneNumber(user.getPhone());
-                }})
+            this.setEmail(user.getEmail());
+            this.setUsername(user.getUsername());
+            this.setPhoneNumber(user.getPhone());
+        }})
                 .findFirst()
                 .orElse(null);
     }

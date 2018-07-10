@@ -40,7 +40,7 @@ public class HotelServiceImplTest {
             }
         };
 
-        HotelServiceImpl service = new HotelServiceImpl(repo);
+        HotelServiceImpl service = new HotelServiceImpl(repo, null);
 
         // Act
 
@@ -83,7 +83,7 @@ public class HotelServiceImplTest {
             }
 
         };
-        HotelServiceImpl service = new HotelServiceImpl(repo);
+        HotelServiceImpl service = new HotelServiceImpl(repo, null);
 
         //Act
         Hotel hotel = service.getHotelById(-1);
@@ -121,7 +121,7 @@ public class HotelServiceImplTest {
             }
 
         };
-        HotelServiceImpl service = new HotelServiceImpl(repo);
+        HotelServiceImpl service = new HotelServiceImpl(repo, null);
         Hotel hotel =  new Hotel();
         hotel.setName("aa");
         HotelDto hotelDto = new HotelDto();
@@ -163,7 +163,7 @@ public class HotelServiceImplTest {
             }
 
         };
-        HotelServiceImpl service = new HotelServiceImpl(repo);
+        HotelServiceImpl service = new HotelServiceImpl(repo, null);
         Hotel hotel =  new Hotel();
         hotel.setName("asdf");
         HotelDto hotelDto = new HotelDto();
