@@ -9,6 +9,7 @@ import app.services.api.UserService;
 import app.validation_utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -112,7 +113,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         Set<Privilege> roles = user.getPrivileges();
         Set<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName())).collect(Collectors.toSet());
-
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

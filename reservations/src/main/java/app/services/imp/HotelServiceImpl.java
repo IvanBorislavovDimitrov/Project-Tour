@@ -3,9 +3,8 @@ package app.services.imp;
 import app.entities.Hotel;
 import app.model.dtos.HotelDto;
 import app.repostiories.base.GenericRepository;
-import app.services.api.HotelsService;
+import app.services.api.HotelService;
 import org.springframework.beans.InvalidPropertyException;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class HotelServiceImpl implements HotelsService {
+public class HotelServiceImpl implements HotelService {
 
     private static final int PAGE_SIZE = 10;
     private static final int HOTEL_LEN_MIN = 4;
@@ -27,6 +26,7 @@ public class HotelServiceImpl implements HotelsService {
     @Override
     public List<HotelDto> getAllHotels() {
         return hotelsRepository.getAll().stream()
+                .sorted((h1, h2) -> Integer.compare(h2.getStars(), h1.getStars()))
                 .map(hotel -> new HotelDto() {{
                     this.setName(hotel.getName());
                     this.setCity(hotel.getCity());
@@ -63,5 +63,10 @@ public class HotelServiceImpl implements HotelsService {
         hotelsRepository.create(hotel);
     }
 
-
+    @Override
+    public List<HotelDto> getHotelsByName(String name) {
+        return this.getAllHotels().stream()
+                .filter(hotelDto -> hotelDto.getName().equals(name))
+                .collect(Collectors.toList());
+    }
 }

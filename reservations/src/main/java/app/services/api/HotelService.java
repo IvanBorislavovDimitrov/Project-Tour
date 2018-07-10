@@ -5,7 +5,7 @@ import app.model.dtos.HotelDto;
 
 import java.util.List;
 
-public interface HotelsService {
+public interface HotelService {
     List<HotelDto> getAllHotels();
 
     Hotel getHotelById(int id);
@@ -14,5 +14,6 @@ public interface HotelsService {
 
     void createHotel(HotelDto hotel);
 
+    List<HotelDto> getHotelsByName(String name);
     //CRUD methods
 }
