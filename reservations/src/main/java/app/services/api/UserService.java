@@ -13,7 +13,7 @@ public interface UserService {
 
     UserProfileDto findByUsername(String username);
 
-    void addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date);
+    boolean addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date);
 
     List<ReservationForShowingInProfile> getAllReservationsForShowing(String username);
 

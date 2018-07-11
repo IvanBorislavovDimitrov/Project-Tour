@@ -34,7 +34,7 @@
         </form>
     </div>
 </nav>
-<form th:action="@{/register}" method="post">
+<form th:action="@{/createRoom}" method="post">
     <fieldset>
         <legend>Register</legend>
         <div class="form-group row">
@@ -61,7 +61,7 @@
                 <input type="text" name="phoneNumber" class="form-control" id="phoneNumber">
             </div>
         </div>
-        <h4 th:if="${registerError}" class="error">Every column must be at least 3 symbols long!</h4>
+        <h4 th:if="${registerError}" class="error">Wrong input!</h4>
         <button type="submit" class="btn btn-primary">Register</button>
     </fieldset>
 </form>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http:\\www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http:\\www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -31,21 +31,24 @@
         </ul>
     </div>
 </nav>
-<div th:object="${room}">
-    <div th:object="${guide}">
-        <h3><p th:text="|Room for ${room.getNumOfBeds()} price: ${room.getPrice()} guide: ${guide.getName()}|"></p></h3>
+<h3>Create room</h3>
+<div th:object="${id}">
+    <form th:action="@{/createRoom/} + ${id}" method="post">
         <div class="form-group row">
-            <label for="date" class="col-sm-2 col-form-label">Date (in format dd-MM-yyyy)</label>
-        </div>
-        <form th:action="@{/rooms/} + ${room.getId()} + @{/} + ${guide.getId()}" method="post">
+            <label for="numberOfBeds" class="col-sm-2 col-form-label">Beds number: </label>
             <div class="col-sm-10">
-                <input type="text" name="date" class="form-control" id="date">
+                <input type="text" name="numberOfBeds" class="form-control" id="numberOfBeds">
             </div>
-            <br>
-            <button type="submit" class="btn btn-danger">Confirm</button>
-        </form>
-    </div>
+        </div>
+        <div class="form-group row">
+            <label for="price" class="col-sm-2 col-form-label">Price: </label>
+            <div class="col-sm-10">
+                <input type="text" name="price" class="form-control" id="price">
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-danger">Confirm</button>
+    </form>
 </div>
-<h4 th:if="${error}" class="error">Invalid Date!</h4>
 </body>
 </html>

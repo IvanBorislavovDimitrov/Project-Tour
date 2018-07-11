@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -99,7 +100,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public void addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date) {
+    public boolean addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date) {
         Room roomEntity = this.roomRepository.getAll().stream()
                 .filter(r -> r.getId() == room.getId())
                 .findFirst()
@@ -116,19 +117,36 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 .orElse(null);
 
         Reservation reservation = new Reservation();
+        List<Reservation> reservations = this.reservationRepository.getAll();
+        Date d = new Date(System.currentTimeMillis());
+
         try {
             reservation.setDate(new SimpleDateFormat("yy-MM-yyyy").parse(date));
+            if (d.compareTo(new SimpleDateFormat("yy-MM-yyyy").parse(date)) < 0) {
+                return false;
+            }
         } catch (ParseException e) {
-            e.printStackTrace();
+            return false;
         }
 
-        reservation.getRooms().add(roomEntity);
+
+        if (reservations
+                .stream()
+                .anyMatch(r -> r.getRooms()
+                                .stream()
+                                .anyMatch(s -> s.getId() == roomEntity.getId() && reservation.getDate().equals(r.getDate())))) {
+            return false;
+        }
+
+            reservation.getRooms().add(roomEntity);
         reservation.setTourGuide(guideEntity);
         reservation.setUser(userEntity);
         roomEntity.getReservations().add(reservation);
         userEntity.getReservations().add(reservation);
 
         this.reservationRepository.create(reservation);
+
+        return true;
     }
 
     @Override
@@ -144,7 +162,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 reservation.setGuideNumber(r.getTourGuide().getPhoneNumber());
                 reservation.setHotelInfo(String.join(" ", r.getRooms().stream()
                         .map(f -> String.format("Hotel: %s, Beds: %d",
-                        f.getHotel().getName(), f.getNumOfBeds())).collect(Collectors.toList())));
+                                f.getHotel().getName(), f.getNumOfBeds())).collect(Collectors.toList())));
                 reservations.add(reservation);
             });
         });

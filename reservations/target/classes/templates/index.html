@@ -43,12 +43,15 @@
             <li class="nav-item">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/addGuide">Add guide</a><br>
             </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/createRoom">Add room</a><br>
+            </li>
         </ul>
     </div>
 </nav>
 
 <br>
-
+<h3>Hotels: </h3>
 <table class="table table-hover">
     <thead>
     <tr>
@@ -62,6 +65,21 @@
         <td th:text="${hotel.getName()}"></td>
         <td th:text="${hotel.getCity()}"></td>
         <td th:text="${hotel.getStars()}"></td>
+    </tr>
+    </tbody>
+</table>
+<h3>Guides: </h3>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Phone number</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-active" th:each="guide : ${guides}">
+        <td th:text="${guide.getName()}"></td>
+        <td th:text="${guide.getPhoneNumber()}"></td>
     </tr>
     </tbody>
 </table>

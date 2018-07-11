@@ -5,6 +5,7 @@ import app.entities.Room;
 import app.model.dtos.HotelDto;
 import app.model.dtos.HotelsWithRoomsDto;
 import app.model.dtos.RoomDto;
+import app.model.dtos.RoomDtoCreate;
 import app.repostiories.base.GenericRepository;
 import app.services.api.HotelService;
 import app.validation_utils.ValidationUtil;
@@ -35,7 +36,7 @@ public class HotelServiceImpl implements HotelService {
     public List<HotelDto> getAllHotels() {
         return hotelsRepository.getAll().stream()
                 .sorted((h1, h2) -> Integer.compare(h2.getStars(), h1.getStars()))
-                .map(hotel -> new HotelDto(hotel.getName(), hotel.getCity(), hotel.getStars()))
+                .map(hotel -> new HotelDto(hotel.getId(), hotel.getName(), hotel.getCity(), hotel.getStars()))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +67,6 @@ public class HotelServiceImpl implements HotelService {
         this.hotelsRepository.create(hotel);
     }
 
-    //TODO
     @Override
     public List<HotelsWithRoomsDto> getHotelsByName(String name) {
         List<HotelsWithRoomsDto> hotelsWithRoomsDtos = new ArrayList<>();
@@ -88,5 +88,17 @@ public class HotelServiceImpl implements HotelService {
         });
 
         return hotelsWithRoomsDtos;
+    }
+
+    @Override
+    public void addRoom(int hotelId, RoomDtoCreate roomDtoCreate) {
+        Hotel hotel = this.hotelsRepository.getById(hotelId);
+        Room room = new Room();
+        room.setHotel(hotel);
+        room.setNumOfBeds(roomDtoCreate.getNumberOfBeds());
+        room.setPrice(roomDtoCreate.getPrice());
+        hotel.getRooms().add(room);
+
+        this.roomGenericRepository.create(room);
     }
 }

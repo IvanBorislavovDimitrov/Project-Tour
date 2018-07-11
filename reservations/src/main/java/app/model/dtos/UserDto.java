@@ -2,15 +2,20 @@ package app.model.dtos;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Pattern;
+
 public class UserDto {
 
     @Length(min = 3)
+    @Pattern(regexp = "^\\w+$")
     private String username;
 
     @Length(min = 3)
+    @Pattern(regexp = "[A-Za-z][a-zA-Z0-9]*@([a-zA-Z]+\\.)([a-zA-Z]+\\.)*[a-zA-Z]+")
     private String email;
 
     @Length(min = 3)
+    @Pattern(regexp = "(0\\d+)|(\\+\\d+)")
     private String phoneNumber;
 
     @Length(min =  3)

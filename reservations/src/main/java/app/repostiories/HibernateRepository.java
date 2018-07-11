@@ -50,9 +50,7 @@ public class HibernateRepository<T> implements GenericRepository<T> {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-
-        T entity = session.load(getEntityClass(), id);
+        T entity = session.get(getEntityClass(), id);
 
         transaction.commit();
         session.close();

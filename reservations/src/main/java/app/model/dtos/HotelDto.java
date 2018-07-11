@@ -2,6 +2,8 @@ package app.model.dtos;
 
 public class HotelDto {
 
+    private int id;
+
     private String name;
 
     private String city;
@@ -11,10 +13,19 @@ public class HotelDto {
     public HotelDto() {
     }
 
-    public HotelDto(String name, String city, int stars) {
+    public HotelDto(int id, String name, String city, int stars) {
+        this.id = id;
         this.name = name;
         this.city = city;
         this.stars = stars;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCity() {
