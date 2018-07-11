@@ -1,8 +1,8 @@
 package app.controllers;
 
-import app.entities.Hotel;
 import app.model.dtos.HotelDto;
 import app.model.dtos.HotelsWithRoomsDto;
+import app.model.dtos.TourGuideDto;
 import app.services.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,10 +16,12 @@ import java.util.List;
 public class HomeController {
 
     private final HotelService hotelsService;
+    private final TourGuideService tourGuideService;
 
     @Autowired
-    public HomeController(HotelService hotelsService) {
+    public HomeController(HotelService hotelsService, TourGuideService tourGuideService) {
         this.hotelsService = hotelsService;
+        this.tourGuideService = tourGuideService;
     }
 
     @GetMapping(value = "/")
@@ -28,10 +30,12 @@ public class HomeController {
         model.addAttribute("hotels", hotelDtos);
         if (authentication == null) {
             model.addAttribute("user", "Guest");
-
+            List<TourGuideDto> tourGuides = this.tourGuideService.findAll();
+            model.addAttribute("guides", tourGuides);
             return "index";
         }
-
+        List<TourGuideDto> tourGuides = this.tourGuideService.findAll();
+        model.addAttribute("guides", tourGuides);
         model.addAttribute("user", authentication.getName());
 
         return "index";
