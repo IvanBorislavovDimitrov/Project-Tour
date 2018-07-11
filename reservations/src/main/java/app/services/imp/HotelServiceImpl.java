@@ -3,6 +3,8 @@ package app.services.imp;
 import app.entities.Hotel;
 import app.entities.Room;
 import app.model.dtos.HotelDto;
+import app.model.dtos.HotelsWithRoomsDto;
+import app.model.dtos.RoomDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.HotelService;
 import app.validation_utils.ValidationUtil;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,11 +35,7 @@ public class HotelServiceImpl implements HotelService {
     public List<HotelDto> getAllHotels() {
         return hotelsRepository.getAll().stream()
                 .sorted((h1, h2) -> Integer.compare(h2.getStars(), h1.getStars()))
-                .map(hotel -> new HotelDto() {{
-                    this.setName(hotel.getName());
-                    this.setCity(hotel.getCity());
-                    this.setStars(hotel.getStars());
-                }})
+                .map(hotel -> new HotelDto(hotel.getName(), hotel.getCity(), hotel.getStars()))
                 .collect(Collectors.toList());
     }
 
@@ -67,10 +66,26 @@ public class HotelServiceImpl implements HotelService {
         this.hotelsRepository.create(hotel);
     }
 
+    //TODO
     @Override
-    public List<HotelDto> getHotelsByName(String name) {
-        return this.getAllHotels().stream()
-                .filter(hotelDto -> hotelDto.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
+    public List<HotelsWithRoomsDto> getHotelsByName(String name) {
+        List<HotelsWithRoomsDto> hotelsWithRoomsDtos = new ArrayList<>();
+        List<Hotel> all = this.hotelsRepository.getAll();
+        all.stream().filter(h -> h.getName().equalsIgnoreCase(name)).forEach(a -> {
+            HotelsWithRoomsDto hotelsWithRoomsDto = new HotelsWithRoomsDto();
+            hotelsWithRoomsDto.setCity(a.getCity());
+            hotelsWithRoomsDto.setName(a.getName());
+            hotelsWithRoomsDto.setStars(a.getStars());
+            a.getRooms().stream().sorted((r1, r2) -> Double.compare(r2.getPrice(), r1.getPrice())).forEach(r -> {
+                RoomDto roomDto = new RoomDto();
+                roomDto.setHotel(r.getHotel().getName());
+                roomDto.setNumOfBeds(r.getNumOfBeds());
+                roomDto.setPrice(r.getPrice());
+                hotelsWithRoomsDto.getRoomDtos().add(roomDto);
+            });
+            hotelsWithRoomsDtos.add(hotelsWithRoomsDto);
+        });
+
+        return hotelsWithRoomsDtos;
     }
 }

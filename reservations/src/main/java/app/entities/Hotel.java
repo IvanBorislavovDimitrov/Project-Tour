@@ -47,7 +47,7 @@ public class Hotel {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
     public Set<Room> getRooms() {
         return rooms;
     }

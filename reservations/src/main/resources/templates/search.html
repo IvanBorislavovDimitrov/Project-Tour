@@ -32,16 +32,16 @@
 </nav>
 <form th:action="@{/search}" method="GET">
 
-<fieldset>
-    <legend>Search hotel</legend>
-    <div class="form-group row">
-        <label for="hotel" class="col-sm-2 col-form-label">Hotel: </label>
-        <div class="col-sm-10">
-            <input type="text" name="hotelName" class="form-control" id="hotel">
+    <fieldset>
+        <legend>Search hotel</legend>
+        <div class="form-group row">
+            <label for="hotel" class="col-sm-2 col-form-label">Hotel: </label>
+            <div class="col-sm-10">
+                <input type="text" name="hotelName" class="form-control" id="hotel">
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-</fieldset>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </fieldset>
 </form>
 <div th:if="${searching}" class="error">
     <table class="table table-hover">
@@ -53,10 +53,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="table-active" th:each="hotel : ${hotels}">
-            <td th:text="${hotel.getName()}"></td>
-            <td th:text="${hotel.getCity()}"></td>
-            <td th:text="${hotel.getStars()}"></td>
+        <tr th:each="hotel : ${hotels}">
+            <div class="table-active">
+                <td th:text="${hotel.getName()}"></td>
+                <td th:text="${hotel.getCity()}"></td>
+                <td th:text="${hotel.getStars()}"></td>
+            </div>
+            <table class="table table-light">
+                <tr>
+                    <th scope="col">Number of beds</th>
+                    <th scope="col">Price</th>
+                </tr>
+                <tr th:each="room : ${hotel.getRoomDtos()}">
+                    <td th:text="${room.getNumOfBeds()}"></td>
+                    <td th:text="${room.getPrice()}"></td>
+                </tr>
+            </table>
+
         </tr>
         </tbody>
     </table>

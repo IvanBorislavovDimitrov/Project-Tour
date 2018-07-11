@@ -1,6 +1,9 @@
 package app.model.dtos;
 
-public class HotelDto {
+import java.util.ArrayList;
+import java.util.List;
+
+public class HotelsWithRoomsDto {
 
     private String name;
 
@@ -8,13 +11,17 @@ public class HotelDto {
 
     private int stars;
 
-    public HotelDto() {
+    private List<RoomDto> roomDtos;
+
+    public HotelsWithRoomsDto() {
+        this.roomDtos = new ArrayList<>();
     }
 
-    public HotelDto(String name, String city, int stars) {
+    public HotelsWithRoomsDto(String name, String city, int stars) {
         this.name = name;
         this.city = city;
         this.stars = stars;
+        this.roomDtos = new ArrayList<>();
     }
 
     public String getCity() {
@@ -39,5 +46,13 @@ public class HotelDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<RoomDto> getRoomDtos() {
+        return this.roomDtos;
+    }
+
+    public void setRoomDtos(List<RoomDto> roomDtos) {
+        this.roomDtos = roomDtos;
     }
 }

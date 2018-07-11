@@ -16,6 +16,7 @@ public class Room {
 
 
     public Room() {
+        this.reservations = new HashSet<>();
     }
 
     public Room(int numOfBeds, Hotel hotel, double price) {
@@ -64,7 +65,7 @@ public class Room {
         this.price = price;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "rooms_reservations" ,
     joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id"))

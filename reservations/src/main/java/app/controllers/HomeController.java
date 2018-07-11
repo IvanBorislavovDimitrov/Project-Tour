@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.Hotel;
 import app.model.dtos.HotelDto;
+import app.model.dtos.HotelsWithRoomsDto;
 import app.services.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,7 +39,7 @@ public class HomeController {
 
     @GetMapping("/search")
     public String showHotelsByName(@RequestParam(value = "hotelName", required = false)  String name, Model model){
-        List<HotelDto> hotels = this.hotelsService.getHotelsByName(name);
+        List<HotelsWithRoomsDto> hotels = this.hotelsService.getHotelsByName(name);
         model.addAttribute("searching", true);
         model.addAttribute("hotels", hotels);
 
