@@ -7,8 +7,8 @@ import app.repostiories.base.GenericRepository;
 import app.services.api.RoomService;
 import app.validation_utils.ValidationUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,8 +45,14 @@ public class RoomServiceImplement implements RoomService {
     }
 
     @Override
-    public Room getRoomById(int id) {
-        return roomsRepository.getById(id);
+    public RoomDto getRoomById(int id) {
+        Room byId = this.roomsRepository.getAll().stream().filter(x -> x.getId() == id).findFirst().get();
+        RoomDto roomDto = new RoomDto();
+        roomDto.setId(byId.getId());
+        roomDto.setPrice(byId.getPrice());
+        roomDto.setNumOfBeds(byId.getNumOfBeds());
+
+        return roomDto;
     }
 
     @Override

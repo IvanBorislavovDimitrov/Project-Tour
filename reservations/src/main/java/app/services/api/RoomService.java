@@ -11,7 +11,7 @@ import java.util.List;
 public interface RoomService {
     List<RoomDto> getAllRoomsByHotel(String hotelName);
 
-    Room getRoomById(int id);
+    RoomDto getRoomById(int id);
 
     List<RoomDto> getRoomsByHotelAndPage(String hotel, int page);
 

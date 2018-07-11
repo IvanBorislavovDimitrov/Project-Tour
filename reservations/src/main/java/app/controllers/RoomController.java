@@ -1,6 +1,8 @@
 package app.controllers;
 
 import app.entities.TourGuide;
+import app.model.dtos.RoomDto;
+import app.model.dtos.TourGuideDto;
 import app.services.api.HotelService;
 import app.services.api.RoomService;
 import app.services.api.TourGuideService;
@@ -32,16 +34,29 @@ public class RoomController {
 
     @GetMapping("rooms/{id}")
     public String sendToReservationForm(@PathVariable(name = "id") String id, Model model) {
-        List<TourGuide> tourGuides = this.tourGuideService.findAll();
-        model.addAttribute("tourGuides", tourGuides);
+        List<TourGuideDto> tourGuides = this.tourGuideService.findAll();
+        model.addAttribute("guides", tourGuides);
         model.addAttribute("id", id);
 
 
         return "reserve";
     }
 
-    @PostMapping("rooms/{id}")
-    public String confirmReservation(@PathVariable(name = "id") String id) {
+    @GetMapping("rooms/{roomId}/{guideId}")
+    public String confirmReservation(@PathVariable(name = "roomId") String roomId,
+                                     @PathVariable(name = "guideId") String guideId,
+                                     Model model) {
+        RoomDto room = this.roomService.getRoomById(Integer.parseInt(roomId));
+        TourGuideDto tourGuide = this.tourGuideService.findById(Integer.parseInt(guideId));
+
+        model.addAttribute("room", room);
+        model.addAttribute("guide", tourGuide);
+        return "confirm";
+    }
+
+    @PostMapping("rooms/{roomId}/{guideId}")
+    public String detailReservation(@PathVariable(name = "roomId") String roomId,
+                                     @PathVariable(name = "guideId") String guideId) {
         System.out.println();
         return "redirect:/";
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TourGuidesImpl implements TourGuideService {
@@ -24,8 +25,10 @@ public class TourGuidesImpl implements TourGuideService {
     }
 
     @Override
-    public List<TourGuide> findAll() {
-        return tourGuideRepository.getAll();
+    public List<TourGuideDto> findAll() {
+        return tourGuideRepository.getAll().stream()
+                .map(t -> new TourGuideDto(t.getId(), t.getName(), t.getPhoneNumber()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,5 +55,15 @@ public class TourGuidesImpl implements TourGuideService {
                 .filter(guide -> guide.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public TourGuideDto findById(int id) {
+        TourGuide tourGuide =  this.tourGuideRepository.getAll().stream().filter(x -> x.getId() == id).findFirst().get();
+        TourGuideDto tourGuideDto = new TourGuideDto();
+        tourGuideDto.setName(tourGuide.getName());
+        tourGuideDto.setPhoneNumber(tourGuide.getPhoneNumber());
+
+        return tourGuideDto;
     }
 }

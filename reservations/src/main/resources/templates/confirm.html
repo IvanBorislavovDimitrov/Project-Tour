@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="en" xmlns:th="http:\\www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
     <link rel="stylesheet" href="/styles/bootstrap.css">
 </head>
 <body>
@@ -31,39 +28,18 @@
             <li class="nav-item">
                 <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Log out</a><br>
             </li>
-            <li class="nav-item">
-                <a th:text="|Hello, ${user}|" class="navbar-brand" href="/profile"></a><br>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand" href="/search">Search</a><br>
-            </li>
-            <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/createHotel">Create Hotel</a><br>
-            </li>
-            <li class="nav-item">
-                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/addGuide">Add guide</a><br>
-            </li>
         </ul>
     </div>
 </nav>
+<div th:object="${room}">
+    <div th:object="${guide}">
+        <h3><p th:text="|Room for ${room.getNumOfBeds()} price: ${room.getPrice()} guide: ${guide.getName()}|"></p></h3>
 
-<br>
+        <form th:action="@{/rooms/} + ${room.getId()} + @{/} + ${guide.getId()}" method="post">
+            <button type="submit" class="btn btn-danger">Confirm</button>
+        </form>
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col">Hotel</th>
-        <th scope="col">City</th>
-        <th scope="col">Stars</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="table-active" th:each="hotel : ${hotels}">
-        <td th:text="${hotel.getName()}"></td>
-        <td th:text="${hotel.getCity()}"></td>
-        <td th:text="${hotel.getStars()}"></td>
-    </tr>
-    </tbody>
-</table>
+    </div>
+</div>
 </body>
 </html>

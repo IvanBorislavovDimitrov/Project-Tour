@@ -36,20 +36,32 @@
     </div>
 </nav>
 <div th:object="${id}">
-    <p th:text="${id}"></p>
-    <form th:action="@{/rooms/} + ${id}" method="post">
+    <form >
         <fieldset>
             <legend>Reserve</legend>
             <div class="form-group row">
                 <label for="date" class="col-sm-2 col-form-label">Date (in format dd-MM-yyyy)</label>
                 <div class="col-sm-10">
-                    <input type="password" name="date" class="form-control" id="date">
+                    <input type="text" name="date" class="form-control" id="date">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Reserve</button>
         </fieldset>
+
+        <table class="table table-hover">
+            <tr>
+                <th scope="col">Guide name</th>
+                <th scope="col">Phone number</th>
+            </tr>
+            <tr th:each="guide : ${guides}">
+                <td th:text="${guide.getName()}"></td>
+                <td th:text="${guide.getPhoneNumber()}"></td>
+                <td>
+                    <a class="btn btn-success btn-xs"
+                       th:href="@{/rooms/{roomId}/{guideId}(roomId=${id}, guideId=${guide.getId()})}">Select guide</a>
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
-
 </body>
 </html>

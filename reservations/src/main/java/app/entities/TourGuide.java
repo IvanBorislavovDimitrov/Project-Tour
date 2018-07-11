@@ -1,5 +1,7 @@
 package app.entities;
 
+import org.thymeleaf.standard.expression.Each;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +58,7 @@ public class TourGuide {
         this.reservations = reservations;
     }
 
-    @OneToMany(mappedBy = "tourGuide")
+    @OneToMany(mappedBy = "tourGuide", fetch = FetchType.EAGER)
     public Set<Reservation> getReservations() {
         return this.reservations;
     }
