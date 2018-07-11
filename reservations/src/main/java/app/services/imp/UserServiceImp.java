@@ -1,15 +1,12 @@
 package app.services.imp;
 
-import app.entities.Privilege;
-import app.model.dtos.UserDto;
-import app.entities.User;
-import app.model.dtos.UserProfileDto;
+import app.entities.*;
+import app.model.dtos.*;
 import app.repostiories.base.GenericRepository;
 import app.services.api.UserService;
 import app.validation_utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,15 +28,21 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     private static final String INVALID_USER_MESSAGE = "Invalid user!";
     private PasswordEncoder passwordEncoder;
-    private GenericRepository<Privilege> roleRepository;
-    private GenericRepository<User> userRepository;
+    private final GenericRepository<Privilege> roleRepository;
+    private final GenericRepository<User> userRepository;
+    private final GenericRepository<TourGuide> tourGuideRepository;
+    private final GenericRepository<Room> roomRepository;
+    private final GenericRepository<Reservation> reservationRepository;
 
     @Autowired
     public UserServiceImp(PasswordEncoder passwordEncoder,
-                          @Qualifier("Privilege") GenericRepository<Privilege> roleRepository, @Qualifier("User") GenericRepository<User> userRepository) {
+                          @Qualifier("Privilege") GenericRepository<Privilege> roleRepository, @Qualifier("User") GenericRepository<User> userRepository, GenericRepository<TourGuide> tourGuideRepository, GenericRepository<Room> roomRepository, GenericRepository<Reservation> reservationRepository) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.tourGuideRepository = tourGuideRepository;
+        this.roomRepository = roomRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
@@ -90,6 +96,54 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 .map(user -> new UserProfileDto(user.getUsername(), user.getEmail(), user.getPhone()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public void addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date) {
+        Room roomEntity = this.roomRepository.getAll().stream()
+                .filter(r -> r.getId() == room.getId())
+                .findFirst()
+                .orElse(null);
+
+        TourGuide guideEntity = this.tourGuideRepository.getAll().stream()
+                .filter(t -> t.getId() == tourGuide.getId())
+                .findFirst()
+                .orElse(null);
+
+        User userEntity = this.userRepository.getAll().stream()
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .findFirst()
+                .orElse(null);
+
+        Reservation reservation = new Reservation();
+        try {
+            reservation.setDate(new SimpleDateFormat("yy-MM-yyyy").parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        reservation.getRooms().add(roomEntity);
+        reservation.setTourGuide(guideEntity);
+        userEntity.getReservations().add(reservation);
+        reservation.setUser(userEntity);
+
+        this.reservationRepository.create(reservation);
+    }
+
+    @Override
+    public List<ReservationForShowingInProfile> getAllReservationsForShowing() {
+        List<User> users = this.userRepository.getAll();
+        List<ReservationForShowingInProfile> reservations = new ArrayList<>();
+        users.forEach(user -> {
+            user.getReservations().forEach(r -> {
+                ReservationForShowingInProfile reservation = new ReservationForShowingInProfile();
+                reservation.setDate(r.getDate().toString());
+                reservation.setGuideName(r.getTourGuide().getName());
+                reservation.setGuideNumber(r.getTourGuide().getPhoneNumber());
+                reservations.add(reservation);
+            });
+        });
+
+        return reservations;
     }
 
     @Override

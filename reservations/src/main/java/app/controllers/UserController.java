@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.entities.User;
+import app.model.dtos.ReservationForShowingInProfile;
 import app.model.dtos.UserDto;
 import app.model.dtos.UserProfileDto;
 import app.services.api.UserService;
@@ -40,6 +41,8 @@ public class UserController {
 
         UserProfileDto user = this.userService.findByUsername(principal.getUsername());
         model.addAttribute("user", user);
+        List<ReservationForShowingInProfile> reservations = this.userService.getAllReservationsForShowing();
+        model.addAttribute("reservations", reservations);
 
         return "profile";
 

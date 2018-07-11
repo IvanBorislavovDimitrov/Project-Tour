@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.entities.TourGuide;
+import app.model.dtos.ReservationDto;
 import app.model.dtos.RoomDto;
 import app.model.dtos.TourGuideDto;
 import app.services.api.HotelService;
@@ -8,6 +9,8 @@ import app.services.api.RoomService;
 import app.services.api.TourGuideService;
 import app.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +59,14 @@ public class RoomController {
 
     @PostMapping("rooms/{roomId}/{guideId}")
     public String detailReservation(@PathVariable(name = "roomId") String roomId,
-                                     @PathVariable(name = "guideId") String guideId) {
-        System.out.println();
-        return "redirect:/";
+                                    @PathVariable(name = "guideId") String guideId,
+                                    ReservationDto reservationDto) {
+        RoomDto room = this.roomService.getRoomById(Integer.parseInt(roomId));
+        TourGuideDto tourGuide = this.tourGuideService.findById(Integer.parseInt(guideId));
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        this.userService.addReservation(room, tourGuide, principal.getUsername(), reservationDto.getDate());
+        return "redirect:/profile";
     }
 }
 

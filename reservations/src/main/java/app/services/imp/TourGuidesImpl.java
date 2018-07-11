@@ -61,6 +61,7 @@ public class TourGuidesImpl implements TourGuideService {
     public TourGuideDto findById(int id) {
         TourGuide tourGuide =  this.tourGuideRepository.getAll().stream().filter(x -> x.getId() == id).findFirst().get();
         TourGuideDto tourGuideDto = new TourGuideDto();
+        tourGuideDto.setId(tourGuide.getId());
         tourGuideDto.setName(tourGuide.getName());
         tourGuideDto.setPhoneNumber(tourGuide.getPhoneNumber());
 
