@@ -5,14 +5,24 @@ public class ReservationForShowingInProfile {
     private String date;
     private String guideName;
     private String guideNumber;
+    private String hotelInfo;
 
     public ReservationForShowingInProfile() {
     }
 
-    public ReservationForShowingInProfile(String date, String guideName, String guideNumber) {
+    public ReservationForShowingInProfile(String date, String guideName, String guideNumber, String hotelInfo) {
         this.date = date;
         this.guideName = guideName;
         this.guideNumber = guideNumber;
+        this.hotelInfo = hotelInfo;
+    }
+
+    public String getHotelInfo() {
+        return this.hotelInfo;
+    }
+
+    public void setHotelInfo(String hotelInfo) {
+        this.hotelInfo = hotelInfo;
     }
 
     public String getDate() {

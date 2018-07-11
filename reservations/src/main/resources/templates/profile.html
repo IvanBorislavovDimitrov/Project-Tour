@@ -41,6 +41,7 @@
         <th scope="col">Date</th>
         <th scope="col">Tour guide name</th>
         <th scope="col">Tour guide phone</th>
+        <th scope="col">Info: </th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
         <td th:text="${reservation.getDate()}"></td>
         <td th:text="${reservation.getGuideName()}"></td>
         <td th:text="${reservation.getGuideNumber()}"></td>
+        <td th:text="${reservation.getHotelInfo()}"></td>
     </tr>
     </tbody>
 </table>

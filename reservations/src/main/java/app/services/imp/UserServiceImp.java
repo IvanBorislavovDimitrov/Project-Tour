@@ -121,10 +121,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         reservation.getRooms().add(roomEntity);
         reservation.setTourGuide(guideEntity);
-        userEntity.getReservations().add(reservation);
         reservation.setUser(userEntity);
+        roomEntity.getReservations().add(reservation);
+        userEntity.getReservations().add(reservation);
 
         this.reservationRepository.create(reservation);
     }
@@ -135,11 +137,14 @@ public class UserServiceImp implements UserService, UserDetailsService {
                 .collect(Collectors.toList());
         List<ReservationForShowingInProfile> reservations = new ArrayList<>();
         users.forEach(user -> {
-            user.getReservations().forEach(r -> {
+            user.getReservations().stream().sorted((d1, d2) -> d2.getDate().compareTo(d1.getDate())).forEach(r -> {
                 ReservationForShowingInProfile reservation = new ReservationForShowingInProfile();
                 reservation.setDate(r.getDate().toString());
                 reservation.setGuideName(r.getTourGuide().getName());
                 reservation.setGuideNumber(r.getTourGuide().getPhoneNumber());
+                reservation.setHotelInfo(String.join(" ", r.getRooms().stream()
+                        .map(f -> String.format("Hotel: %s, Beds: %d",
+                        f.getHotel().getName(), f.getNumOfBeds())).collect(Collectors.toList())));
                 reservations.add(reservation);
             });
         });
