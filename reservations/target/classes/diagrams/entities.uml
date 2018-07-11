@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="261.5" y="22.0">app.entities.Privilege</node>
+    <node x="226.0" y="190.0">app.entities.User</node>
+    <node x="136.99999999999997" y="444.0">app.entities.Reservation</node>
+    <node x="0.0" y="212.0">app.entities.Room</node>
+    <node x="29.0" y="0.0">app.entities.Hotel</node>
+    <node x="112.99999999999997" y="634.0">app.entities.TourGuide</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="app.entities.Reservation" target="app.entities.TourGuide">
+      <point x="19.75" y="70.0" />
+      <point x="235.74999999999997" y="609.0" />
+      <point x="241.74999999999997" y="609.0" />
+      <point x="25.75" y="-59.0" />
+    </edge>
+    <edge source="app.entities.Hotel" target="app.entities.Room">
+      <point x="55.5" y="70.0" />
+      <point x="158.5" y="165.0" />
+      <point x="180.25" y="165.0" />
+      <point x="77.25" y="-70.0" />
+    </edge>
+    <edge source="app.entities.User" target="app.entities.Privilege">
+      <point x="-25.75" y="-92.0" />
+      <point x="303.25" y="165.0" />
+      <point x="312.125" y="165.0" />
+      <point x="-16.875" y="48.0" />
+    </edge>
+    <edge source="app.entities.Reservation" target="app.entities.User">
+      <point x="9.875000000000028" y="-70.0" />
+      <point x="225.875" y="394.0" />
+      <point x="251.75" y="394.0" />
+      <point x="-77.25" y="92.0" />
+    </edge>
+    <edge source="app.entities.Reservation" target="app.entities.Room">
+      <point x="-49.37499999999997" y="-70.0" />
+      <point x="166.625" y="414.0" />
+      <point x="77.25" y="414.0" />
+      <point x="-25.75" y="70.0" />
+    </edge>
+    <edge source="app.entities.Privilege" target="app.entities.User">
+      <point x="50.625" y="48.0" />
+      <point x="379.625" y="165.0" />
+      <point x="406.25" y="165.0" />
+      <point x="77.25" y="-92.0" />
+    </edge>
+    <edge source="app.entities.User" target="app.entities.Reservation">
+      <point x="25.75" y="92.0" />
+      <point x="354.75" y="414.0" />
+      <point x="265.375" y="414.0" />
+      <point x="49.37500000000003" y="-70.0" />
+    </edge>
+    <edge source="app.entities.Room" target="app.entities.Hotel">
+      <point x="-77.25" y="-70.0" />
+      <point x="25.75" y="165.0" />
+      <point x="47.5" y="165.0" />
+      <point x="-55.5" y="70.0" />
+    </edge>
+    <edge source="app.entities.TourGuide" target="app.entities.Reservation">
+      <point x="-77.25" y="-59.0" />
+      <point x="138.74999999999997" y="609.0" />
+      <point x="156.74999999999997" y="609.0" />
+      <point x="-59.25" y="70.0" />
+    </edge>
+    <edge source="app.entities.Room" target="app.entities.Reservation">
+      <point x="77.25" y="70.0" />
+      <point x="180.25" y="394.0" />
+      <point x="206.125" y="394.0" />
+      <point x="-9.874999999999972" y="-70.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5131987577639752" x="302.5" y="624.0" />
+  <SelectedNodes>
+    <node>app.entities.Room</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+

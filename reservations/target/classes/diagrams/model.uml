@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="31.5" y="0.0">app.model.dtos.RoomDto</node>
+    <node x="0.0" y="507.0">app.model.dtos.TourGuideDto</node>
+    <node x="557.0" y="0.0">app.model.dtos.ReservationForShowingInProfile</node>
+    <node x="239.0" y="714.0">app.model.dtos.ReservationDto</node>
+    <node x="262.0" y="507.0">app.model.dtos.UserProfileDto</node>
+    <node x="0.0" y="256.0">app.model.dtos.HotelsWithRoomsDto</node>
+    <node x="0.0" y="714.0">app.model.view.UserRegisterModel</node>
+    <node x="524.0" y="507.0">app.model.dtos.HotelDto</node>
+    <node x="295.0" y="0.0">app.model.dtos.UserDto</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="app.model.dtos.HotelsWithRoomsDto" target="app.model.dtos.RoomDto">
+      <point x="62.5" y="-103.0" />
+      <point x="187.5" y="231.0" />
+      <point x="171.75" y="231.0" />
+      <point x="46.75" y="103.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7758215962441315" x="385.5" y="426.0" />
+  <SelectedNodes>
+    <node>app.model.dtos.RoomDto</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+

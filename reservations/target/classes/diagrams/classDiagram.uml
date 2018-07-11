@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="591.0">app.services.api.TourGuideService</node>
+    <node x="484.0" y="428.0">app.model.dtos.RoomDto</node>
+    <node x="202.0" y="0.0">app.entities.User</node>
+    <node x="661.0" y="962.0">app.config.DIConfig</node>
+    <node x="0.0" y="887.0">app.config.WebSecurityConfig</node>
+    <node x="758.0" y="591.0">app.entities.Privilege</node>
+    <node x="191.0" y="591.0">app.services.api.UserService</node>
+    <node x="352.0" y="591.0">app.model.dtos.TourGuideDto</node>
+    <node x="0.0" y="962.0">diagrams</node>
+    <node x="548.0" y="887.0">app.controllers.HomeController</node>
+    <node x="656.0" y="508.0">app.services.imp.RoomServiceImplement</node>
+    <node x="683.5" y="428.0">app.services.api.RoomService</node>
+    <node x="453.0" y="102.0">app.services.imp.HotelServiceImpl</node>
+    <node x="0.0" y="243.0">app.entities.Reservation</node>
+    <node x="453.0" y="0.0">app.services.api.HotelService</node>
+    <node x="794.0" y="746.0">app.controllers.TourGuideController</node>
+    <node x="599.0" y="243.0">app.model.dtos.ReservationForShowingInProfile</node>
+    <node x="335.0" y="962.0">app.repostiories.HibernateUtils</node>
+    <node x="675.0" y="0.0">app.entities.Room</node>
+    <node x="4.0" y="671.0">app.services.imp.TourGuidesImpl</node>
+    <node x="623.0" y="746.0">app.model.dtos.ReservationDto</node>
+    <node x="722.0" y="887.0">app.controllers.RoomController</node>
+    <node x="406.0" y="243.0">app.entities.Hotel</node>
+    <node x="0.0" y="124.0">app.repostiories.HibernateRepository</node>
+    <node x="555.0" y="591.0">app.model.dtos.UserProfileDto</node>
+    <node x="500.0" y="962.0">app.validation_utils.ValidationUtil</node>
+    <node x="157.0" y="746.0">app.config.BeanConfig</node>
+    <node x="251.0" y="428.0">app.model.dtos.HotelsWithRoomsDto</node>
+    <node x="181.0" y="671.0">app.services.imp.UserServiceImp</node>
+    <node x="372.0" y="887.0">app.controllers.HotelsController</node>
+    <node x="168.0" y="962.0">app.controllers.UserController</node>
+    <node x="0.0" y="0.0">app.repostiories.base.GenericRepository</node>
+    <node x="434.0" y="746.0">app.model.view.UserRegisterModel</node>
+    <node x="0.0" y="428.0">app.entities.TourGuide</node>
+    <node x="0.0" y="746.0">app.model.dtos.HotelDto</node>
+    <node x="189.0" y="887.0">app.controllers.SecurityController</node>
+    <node x="203.0" y="243.0">app.model.dtos.UserDto</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="app.services.imp.HotelServiceImpl" target="app.services.api.HotelService">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="app.services.imp.RoomServiceImplement" target="app.services.api.RoomService">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="app.services.imp.UserServiceImp" target="app.services.api.UserService">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="app.services.imp.TourGuidesImpl" target="app.services.api.TourGuideService">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="app.repostiories.HibernateRepository" target="app.repostiories.base.GenericRepository">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6531620553359684" x="473.0" y="494.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:\\www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Reservations</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a sec:authorize="isAnonymous()" class="navbar-brand" href="/register">Register here</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAnonymous()" class="navbar-brand" href="/login">Log in</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/users">See all users</a><br>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Log out</a><br>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div th:object="${id}">
+    <form >
+        <fieldset>
+            <legend>Reserve</legend>
+        </fieldset>
+        <table class="table table-hover">
+            <tr>
+                <th scope="col">Guide name</th>
+                <th scope="col">Phone number</th>
+            </tr>
+            <tr th:each="guide : ${guides}">
+                <td th:text="${guide.getName()}"></td>
+                <td th:text="${guide.getPhoneNumber()}"></td>
+                <td>
+                    <a class="btn btn-success btn-xs"
+                       th:href="@{/rooms/{roomId}/{guideId}(roomId=${id}, guideId=${guide.getId()})}">Select guide</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
