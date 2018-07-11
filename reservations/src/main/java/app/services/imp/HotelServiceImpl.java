@@ -78,6 +78,7 @@ public class HotelServiceImpl implements HotelService {
             hotelsWithRoomsDto.setStars(a.getStars());
             a.getRooms().stream().sorted((r1, r2) -> Double.compare(r2.getPrice(), r1.getPrice())).forEach(r -> {
                 RoomDto roomDto = new RoomDto();
+                roomDto.setId(r.getId());
                 roomDto.setHotel(r.getHotel().getName());
                 roomDto.setNumOfBeds(r.getNumOfBeds());
                 roomDto.setPrice(r.getPrice());

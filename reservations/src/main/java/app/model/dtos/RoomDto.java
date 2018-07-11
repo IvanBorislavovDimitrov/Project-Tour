@@ -5,11 +5,21 @@ import app.entities.Hotel;
 import javax.validation.constraints.Min;
 
 public class RoomDto {
+
+    private int id;
     private int numOfBeds;
     private String hotel;
     private double price;
 
     public RoomDto() {
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumOfBeds() {

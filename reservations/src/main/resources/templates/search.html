@@ -59,17 +59,19 @@
                 <td th:text="${hotel.getCity()}"></td>
                 <td th:text="${hotel.getStars()}"></td>
             </div>
-            <table class="table table-light">
+            <table class="table table-hover">
                 <tr>
                     <th scope="col">Number of beds</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Reserve</th>
                 </tr>
                 <tr th:each="room : ${hotel.getRoomDtos()}">
                     <td th:text="${room.getNumOfBeds()}"></td>
                     <td th:text="${room.getPrice()}"></td>
+                    <td><a class="btn btn-success btn-xs" th:href="@{/rooms/{id}(id = ${room.getId()})}">Reserve room</a>
+                    </td>
                 </tr>
             </table>
-
         </tr>
         </tbody>
     </table>
