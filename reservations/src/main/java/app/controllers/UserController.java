@@ -41,7 +41,7 @@ public class UserController {
 
         UserProfileDto user = this.userService.findByUsername(principal.getUsername());
         model.addAttribute("user", user);
-        List<ReservationForShowingInProfile> reservations = this.userService.getAllReservationsForShowing();
+        List<ReservationForShowingInProfile> reservations = this.userService.getAllReservationsForShowing(user.getUsername());
         model.addAttribute("reservations", reservations);
 
         return "profile";

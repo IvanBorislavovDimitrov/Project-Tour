@@ -15,5 +15,7 @@ public interface UserService {
 
     void addReservation(RoomDto room, TourGuideDto tourGuide, String username, String date);
 
-    List<ReservationForShowingInProfile> getAllReservationsForShowing();
+    List<ReservationForShowingInProfile> getAllReservationsForShowing(String username);
+
+
 }

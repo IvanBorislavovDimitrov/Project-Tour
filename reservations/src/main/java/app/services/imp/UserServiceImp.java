@@ -130,8 +130,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<ReservationForShowingInProfile> getAllReservationsForShowing() {
-        List<User> users = this.userRepository.getAll();
+    public List<ReservationForShowingInProfile> getAllReservationsForShowing(String username) {
+        List<User> users = this.userRepository.getAll().stream().filter(u -> u.getUsername().equalsIgnoreCase(username))
+                .collect(Collectors.toList());
         List<ReservationForShowingInProfile> reservations = new ArrayList<>();
         users.forEach(user -> {
             user.getReservations().forEach(r -> {
