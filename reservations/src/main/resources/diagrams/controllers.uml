@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="467.0">app.controllers.HomeController</node>
+    <node x="355.0" y="467.0">app.controllers.TourGuideController</node>
+    <node x="0.0" y="326.0">app.controllers.RoomController</node>
+    <node x="0.0" y="586.0">app.controllers.HotelsController</node>
+    <node x="0.0" y="0.0">app.controllers.UserController</node>
+    <node x="0.0" y="185.0">app.controllers.SecurityController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="321.0" y="349.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+
