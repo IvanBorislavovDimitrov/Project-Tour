@@ -1,7 +1,5 @@
 package app.model.dtos;
 
-import app.entities.Hotel;
-
 import javax.validation.constraints.Min;
 
 public class RoomDto {

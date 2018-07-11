@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public void register(UserDto userDto) {
+    public boolean register(UserDto userDto) {
         if (!ValidationUtil.isValid(userDto)) {
             throw new IllegalArgumentException(INVALID_USER_MESSAGE);
         }
@@ -87,7 +88,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
             user.getPrivileges().add(role);
         }
 
+        if (users.stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(userDto.getEmail())) ||
+                users.stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(userDto.getUsername()))) {
+            throw new IllegalArgumentException();
+        }
+
         this.userRepository.create(user);
+
+
+        return true;
     }
 
     @Override
@@ -121,8 +130,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         Date d = new Date(System.currentTimeMillis());
 
         try {
-            reservation.setDate(new SimpleDateFormat("yy-MM-yyyy").parse(date));
-            if (d.compareTo(new SimpleDateFormat("yy-MM-yyyy").parse(date)) < 0) {
+            reservation.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(date));
+            if (d.compareTo(new SimpleDateFormat("dd-MM-yyyy").parse(date)) > 0) {
                 return false;
             }
         } catch (ParseException e) {
@@ -133,12 +142,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
         if (reservations
                 .stream()
                 .anyMatch(r -> r.getRooms()
-                                .stream()
-                                .anyMatch(s -> s.getId() == roomEntity.getId() && reservation.getDate().equals(r.getDate())))) {
+                        .stream()
+                        .anyMatch(s -> s.getId() == roomEntity.getId() && reservation.getDate().equals(r.getDate())))) {
             return false;
         }
 
-            reservation.getRooms().add(roomEntity);
+        reservation.getRooms().add(roomEntity);
         reservation.setTourGuide(guideEntity);
         reservation.setUser(userEntity);
         roomEntity.getReservations().add(reservation);

@@ -69,4 +69,28 @@ public class HibernateRepository<T> implements GenericRepository<T> {
         session.close();
         return entity;
     }
+
+    @Override
+    public T delete(T entity) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.delete(entity);
+
+        transaction.commit();
+        session.close();
+
+        return entity;
+    }
+
+    @Override
+    public void deleteById(int id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.delete(String.valueOf(id), getEntityClass());
+
+        transaction.commit();
+        session.close();
+    }
 }

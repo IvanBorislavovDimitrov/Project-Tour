@@ -9,7 +9,7 @@ public interface UserService {
 
     List<UserDto> findAll();
 
-    void register(UserDto userDto);
+    boolean register(UserDto userDto);
 
     UserProfileDto findByUsername(String username);
 

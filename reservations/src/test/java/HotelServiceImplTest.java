@@ -38,6 +38,16 @@ public class HotelServiceImplTest {
             public void setEntityClass(Class<Hotel> hotelClass) {
 
             }
+
+            @Override
+            public Hotel delete(Hotel entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteById(int id) {
+
+            }
         };
 
         HotelServiceImpl service = new HotelServiceImpl(repo, null);
@@ -82,6 +92,16 @@ public class HotelServiceImplTest {
 
             }
 
+            @Override
+            public Hotel delete(Hotel entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteById(int id) {
+
+            }
+
         };
         HotelServiceImpl service = new HotelServiceImpl(repo, null);
 
@@ -117,6 +137,16 @@ public class HotelServiceImplTest {
 
             @Override
             public void setEntityClass(Class<Hotel> hotelClass) {
+
+            }
+
+            @Override
+            public Hotel delete(Hotel entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteById(int id) {
 
             }
 
@@ -162,6 +192,16 @@ public class HotelServiceImplTest {
 
             }
 
+            @Override
+            public Hotel delete(Hotel entity) {
+                return null;
+            }
+
+            @Override
+            public void deleteById(int id) {
+
+            }
+
         };
         HotelServiceImpl service = new HotelServiceImpl(repo, null);
         Hotel hotel =  new Hotel();
@@ -174,8 +214,5 @@ public class HotelServiceImplTest {
         //Assert
 
         Assert.assertEquals(hotel.getId(), 1);
-
-
-
     }
 }

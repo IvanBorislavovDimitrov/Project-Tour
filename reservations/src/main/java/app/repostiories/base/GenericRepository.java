@@ -10,4 +10,8 @@ public interface GenericRepository<T> {
     T create(T entity);
 
     void setEntityClass(Class<T> hotelClass);
+
+    T delete(T entity);
+
+    void deleteById(int id);
 }
