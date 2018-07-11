@@ -9,8 +9,8 @@ import java.util.Set;
 public class TourGuide {
 
     private int id;
-
     private String name;
+    private  String phoneNumber;
 
     private Set<Reservation> reservations;
 
@@ -43,6 +43,14 @@ public class TourGuide {
         this.name = name;
     }
 
+    @Column(name = "phone", length = 55, nullable = false)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;

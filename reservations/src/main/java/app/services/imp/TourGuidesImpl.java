@@ -1,8 +1,11 @@
 package app.services.imp;
 
+import app.entities.Hotel;
 import app.entities.TourGuide;
+import app.model.dtos.TourGuideDto;
 import app.repostiories.base.GenericRepository;
 import app.services.api.TourGuideService;
+import app.validation_utils.ValidationUtil;
 import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,7 @@ import java.util.List;
 
 @Service
 public class TourGuidesImpl implements TourGuideService {
-    private static final int GUIDE_LEN_MIN = 5;
+    private static final String INVALID_GUIDE_MESSAGE = "Invalid name";
     private final GenericRepository<TourGuide> tourGuideRepository;
 
     @Autowired
@@ -26,16 +29,28 @@ public class TourGuidesImpl implements TourGuideService {
     }
 
     @Override
-    public void register(TourGuide tourGuide) {
-        if(tourGuide.getName().length()<GUIDE_LEN_MIN){
-            throw new InvalidPropertyException(TourGuide.class, "name", "Invalid length");
+    public void register(TourGuideDto tourGuideDto) {
+        if (!ValidationUtil.isValid(tourGuideDto)) {
+            throw new IllegalArgumentException(INVALID_GUIDE_MESSAGE);
         }
 
-        tourGuideRepository.create(tourGuide);
+
+
+            TourGuide tourGuide = new TourGuide();
+            tourGuide.setName(tourGuideDto.getName());
+            tourGuide.setPhoneNumber(tourGuideDto.getPhoneNumber());
+
+            tourGuideRepository.create(tourGuide);
+
+
     }
 
     @Override
-    public TourGuide findByName(String Name) {
-        return null;
+    public TourGuide findByName(String name) {
+        return tourGuideRepository.getAll()
+                .stream()
+                .filter(guide -> guide.getName().equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }
