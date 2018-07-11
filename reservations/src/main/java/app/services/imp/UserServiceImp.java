@@ -42,7 +42,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public List<UserDto> findAll() {
         return this.userRepository.getAll().stream()
-                .map(u -> new UserDto(u.getUsername(), u.getEmail(), u.getPhone(), u.getPassword(), u.getEmail()))
+                .map(u -> new UserDto(u.getUsername(), u.getEmail(), u.getPhone(), u.getPassword(),
+                        String.join(", ", u.getPrivileges()
+                                .stream().map(Privilege::getName).collect(Collectors.toList()))))
                 .collect(Collectors.toList());
     }
 
@@ -85,11 +87,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public UserProfileDto findByUsername(String username) {
         return this.userRepository.getAll().stream()
                 .filter(user -> user.getUsername().equals(username))
-                .map(user -> new UserProfileDto(){{
-            this.setEmail(user.getEmail());
-            this.setUsername(user.getUsername());
-            this.setPhoneNumber(user.getPhone());
-        }})
+                .map(user -> new UserProfileDto(user.getUsername(), user.getEmail(), user.getPhone()))
                 .findFirst()
                 .orElse(null);
     }

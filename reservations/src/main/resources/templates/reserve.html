@@ -39,7 +39,13 @@
     <p th:text="${id}"></p>
     <form th:action="@{/rooms/} + ${id}" method="post">
         <fieldset>
-            <legend>Confirm</legend>
+            <legend>Reserve</legend>
+            <div class="form-group row">
+                <label for="date" class="col-sm-2 col-form-label">Date (in format dd-MM-yyyy)</label>
+                <div class="col-sm-10">
+                    <input type="password" name="date" class="form-control" id="date">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Reserve</button>
         </fieldset>
     </form>

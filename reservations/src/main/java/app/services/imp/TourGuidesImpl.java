@@ -49,7 +49,7 @@ public class TourGuidesImpl implements TourGuideService {
     public TourGuide findByName(String name) {
         return tourGuideRepository.getAll()
                 .stream()
-                .filter(guide -> guide.getName().equals(name))
+                .filter(guide -> guide.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
     }
